@@ -1,0 +1,945 @@
+{
+	"info": {
+		"_postman_id": "14e0af0b-bf83-45b5-86a8-62cc620ae81d",
+		"name": "Ant-Design-Pro-Nest-Server",
+		"description": "AuthJWT_Nest-Server_Template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": ":id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/users/{{newUserId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users",
+										"{{newUserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/users?page=1&size=20",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ":id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/user/{{newUserId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"{{newUserId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "profile",
+					"item": [
+						{
+							"name": "basic",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/profile/basic",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"profile",
+										"basic"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "advanced",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/profile/advanced",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"profile",
+										"advanced"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "article",
+					"item": [
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/articles",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"articles"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "application",
+					"item": [
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/applications",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"applications"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "project",
+					"item": [
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/projects",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "category",
+					"item": [
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "task",
+					"item": [
+						{
+							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('newTaskId', function() {\r",
+											"    const newTask = pm.response.json().data\r",
+											"    pm.collectionVariables.set('newTaskId', newTask._id)\r",
+											"    console.log('get>newTaskId:', pm.collectionVariables.get('newTaskId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "PostMan_title_{{$guid}}",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "{{$randomLoremSentence}}",
+											"type": "text"
+										},
+										{
+											"key": "startTime",
+											"value": "{{now}}",
+											"type": "text"
+										},
+										{
+											"key": "logo",
+											"value": "/uploads/logos/ant.png",
+											"type": "text"
+										},
+										{
+											"key": "owner",
+											"value": "{{authUserId}}",
+											"type": "text"
+										},
+										{
+											"key": "subDescription",
+											"value": "{{$randomWords}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/tasks",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ":id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "PostMan_title_{{$guid}}",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "{{$randomLoremSentence}}",
+											"type": "text"
+										},
+										{
+											"key": "startTime",
+											"value": "{{now}}",
+											"type": "text"
+										},
+										{
+											"key": "logo",
+											"value": "/uploads/logos/alipay.png",
+											"type": "text"
+										},
+										{
+											"key": "owner",
+											"value": "{{authUserId}}",
+											"type": "text"
+										},
+										{
+											"key": "subDescription",
+											"value": "{{$randomWords}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/tasks/{{newTaskId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"tasks",
+										"{{newTaskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ":id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/tasks/{{newTaskId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"tasks",
+										"{{newTaskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ":id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/tasks/{{newTaskId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"tasks",
+										"{{newTaskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/tasks",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "rule",
+					"item": [
+						{
+							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('newRuleId', function() {\r",
+											"    const newRule = pm.response.json().data\r",
+											"    pm.collectionVariables.set('newRuleId', newRule._id)\r",
+											"    console.log('get>newRuleId:', pm.collectionVariables.get('newRuleId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "PostMan_name_{{$guid}}",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "{{$randomLoremSentence}}",
+											"type": "text"
+										},
+										{
+											"key": "owner",
+											"value": "{{authUserId}}",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/rules",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ":id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"postman-name\",\r\n    \"desc\": \"postman-desc\",\r\n    \"startTime\": \"{{nowISOStr}}\",\r\n     \"target\": \"target-2\",\r\n    \"template\": \"template-2\",\r\n    \"type\": 1,\r\n    \"owner\": \"{{authUserId}}\",\r\n    \"frequency\": \"week\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/rules/{{newRuleId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rules",
+										"{{newRuleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "call/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/rules/call/{{newRuleId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rules",
+										"call",
+										"{{newRuleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ":id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/rules/{{newRuleId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rules",
+										"{{newRuleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ":id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/rules/{{newRuleId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rules",
+										"{{newRuleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/rules",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rules"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "rights",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('token', function() {\r",
+											"    const token = pm.response.json().data.access_token\r",
+											"    pm.collectionVariables.set('token', token)\r",
+											"    console.log('get>token:', pm.collectionVariables.get('token'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "webUser",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "web",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/rights/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rights",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "authUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('authUserId', function() {\r",
+											"    const authUserId = pm.response.json().data\r",
+											"    pm.collectionVariables.set('authUserId', authUserId._id)\r",
+											"    console.log('authUserId:', pm.collectionVariables.get('authUserId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/rights/authUser",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rights",
+										"authUser"
+									]
+								},
+								"description": "authUser"
+							},
+							"response": []
+						},
+						{
+							"name": "currentUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('authUserId', function() {\r",
+											"    const authUserId = pm.response.json().data\r",
+											"    pm.collectionVariables.set('authUserId', authUserId._id)\r",
+											"    console.log('authUserId:', pm.collectionVariables.get('authUserId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/rights/currentUser",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rights",
+										"currentUser"
+									]
+								},
+								"description": "authUser"
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('newUserId', function() {\r",
+											"    const newUser = pm.response.json().data\r",
+											"    pm.collectionVariables.set('newUserId', newUser._id)\r",
+											"    console.log('newUserId:', pm.collectionVariables.get('newUserId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "{{$randomLastName}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "postman1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/rights/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rights",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "rights"
+				},
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.globals.set(\"now\", Date.now());",
+					"pm.globals.set(\"nowISOStr\", new Date().toISOString());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:18200/api"
+		},
+		{
+			"key": "authUserId",
+			"value": ""
+		},
+		{
+			"key": "newUserId",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "newPostId",
+			"value": ""
+		},
+		{
+			"key": "newCommentId",
+			"value": ""
+		},
+		{
+			"key": "newTaskId",
+			"value": ""
+		},
+		{
+			"key": "newRuleId",
+			"value": ""
+		}
+	]
+}
