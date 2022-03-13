@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "14e0af0b-bf83-45b5-86a8-62cc620ae81d",
-		"name": "Ant-Design-Pro-Nest-Server",
+		"_postman_id": "5d088830-ca0d-46b7-815f-42ad10480af6",
+		"name": "NestJS-JWT-Template",
 		"description": "AuthJWT_Nest-Server_Template",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -81,133 +81,136 @@
 					]
 				},
 				{
-					"name": "profile",
+					"name": "notice",
 					"item": [
 						{
-							"name": "basic",
+							"name": "/",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/v1/profile/basic",
+									"raw": "{{url}}/v1/notices",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"v1",
-										"profile",
-										"basic"
+										"notices"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "advanced",
+							"name": ":id",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/v1/profile/advanced",
+									"raw": "{{url}}/v1/notices/61b8a35c264ac2e2d54d83e8",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"v1",
-										"profile",
-										"advanced"
+										"notices",
+										"61b8a35c264ac2e2d54d83e8"
 									]
 								}
 							},
 							"response": []
-						}
-					]
-				},
-				{
-					"name": "article",
-					"item": [
+						},
 						{
 							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"PostMan_name_{{$guid}}\",\r\n    \"type\": 2,\r\n    \"desc\": \"{{$randomLoremSentence}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{url}}/v1/articles",
+									"raw": "{{url}}/v1/notices",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"v1",
-										"articles"
+										"notices"
 									]
 								}
 							},
 							"response": []
-						}
-					]
-				},
-				{
-					"name": "application",
-					"item": [
+						},
 						{
-							"name": "/",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/v1/applications",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"v1",
-										"applications"
-									]
+							"name": "read/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "project",
-					"item": [
-						{
-							"name": "/",
+							],
 							"request": {
-								"method": "GET",
+								"method": "PATCH",
 								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{url}}/v1/projects",
+									"raw": "{{url}}/v1/notices/read/61b8a35c264ac2e2d54d83e8",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"v1",
-										"projects"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "category",
-					"item": [
-						{
-							"name": "/",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/v1/categories",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"v1",
-										"categories"
+										"notices",
+										"read",
+										"61b8a35c264ac2e2d54d83e8"
 									]
 								}
 							},
@@ -546,55 +549,6 @@
 							"response": []
 						},
 						{
-							"name": "call/:id",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/v1/rules/call/{{newRuleId}}",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"v1",
-										"rules",
-										"call",
-										"{{newRuleId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": ":id",
 							"request": {
 								"method": "GET",
@@ -817,21 +771,24 @@
 											"type": "text"
 										},
 										{
+											"key": "email",
+											"value": "2qq@163.com",
+											"type": "text"
+										},
+										{
+											"key": "mobile",
+											"value": "18012345678",
+											"type": "text"
+										},
+										{
 											"key": "password",
 											"value": "123456",
 											"type": "text"
 										},
 										{
-											"key": "username",
-											"value": "postman1",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "password",
-											"value": "123456",
-											"type": "text",
-											"disabled": true
+											"key": "title",
+											"value": "FE",
+											"type": "text"
 										}
 									]
 								},
@@ -911,7 +868,7 @@
 	"variable": [
 		{
 			"key": "url",
-			"value": "http://localhost:18200/api"
+			"value": "http://localhost:10500/api"
 		},
 		{
 			"key": "authUserId",
