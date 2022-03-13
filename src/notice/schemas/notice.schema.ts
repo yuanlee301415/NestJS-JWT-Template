@@ -5,7 +5,7 @@ import {
   NotificationSubType,
 } from "../dto/notice.dto";
 
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { User } from "../../user/schemas/user.schema";
 import { NoticeDto } from "../dto/notice.dto";
@@ -50,16 +50,16 @@ export class Notice {
   status: NoticeEventStatus; // 事件状态
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: Types.ObjectId,
     ref: User.name,
   })
-  sender: mongoose.Schema.Types.ObjectId; // 发送方
+  sender: Types.ObjectId; // 发送方
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: Types.ObjectId,
     ref: User.name,
   })
-  receiver: mongoose.Schema.Types.ObjectId; // 接收方
+  receiver: Types.ObjectId; // 接收方
 
   constructor(notice: NoticeDto) {
     this.title = notice.title;

@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
 import {
   Length,
   MaxLength,
@@ -39,5 +39,5 @@ export class UpdateRuleDto {
 
   @IsOptional()
   @IsMongoId()
-  readonly createdBy: mongoose.Schema.Types.ObjectId;
+  readonly createdBy: Types.ObjectId;
 }

@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
 import {
   Length,
   IsOptional,
@@ -61,9 +61,9 @@ export class NoticeDto {
 
   @IsOptional()
   @IsMongoId()
-  readonly sender: mongoose.Schema.Types.ObjectId; // 发送方
+  readonly sender: Types.ObjectId; // 发送方
 
   @IsOptional()
   @IsMongoId()
-  readonly receiver: mongoose.Schema.Types.ObjectId; // 接收方
+  readonly receiver: Types.ObjectId; // 接收方
 }

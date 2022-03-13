@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
 import { IsMongoId, Length, IsOptional } from "class-validator";
 import { NotBlank } from "../../common/validator/NotBlank";
 
@@ -13,5 +13,5 @@ export class CreateRuleDto {
 
   @IsOptional()
   @IsMongoId()
-  readonly createdBy: mongoose.Schema.Types.ObjectId;
+  readonly createdBy: Types.ObjectId;
 }

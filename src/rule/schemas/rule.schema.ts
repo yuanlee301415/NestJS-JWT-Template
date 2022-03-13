@@ -1,6 +1,6 @@
 import type { Document } from "mongoose";
 
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { CreateRuleDto } from "../dto/create-rule.dto";
 import { UpdateRuleDto } from "../dto/update-rule.dto";
@@ -67,10 +67,10 @@ export class Rule {
   status: RuleStatus;
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: Types.ObjectId,
     ref: User.name,
   })
-  createdBy: mongoose.Schema.Types.ObjectId;
+  createdBy: Types.ObjectId;
 
   constructor(rule: CreateRuleDto & UpdateRuleDto) {
     this.name = rule.name;
