@@ -33,7 +33,6 @@ export class TaskController {
   async findAll(
     @Query(new TransformIntQuery(["keyword"])) query
   ): Promise<Resp<Task[]>> {
-    console.log("query:", query);
     const [data, total] = await this.taskService.findAll(query);
     return {
       code: 0,

@@ -21,13 +21,13 @@ export class TransformIntQuery implements PipeTransform {
   };
 
   constructor(public fields?: string[]) {
-    const PUB = ["current", "pageSize"];
+    const common = ["current", "pageSize"];
     if (this.fields) {
-      this.fields = PUB.concat(this.fields);
+      this.fields = common.concat(this.fields);
     } else {
-      this.fields = PUB;
+      this.fields = common;
     }
-    console.log("TransformIntQuery>fields:\n", this.fields);
+    // console.log("TransformIntQuery>fields:\n", this.fields);
   }
 
   transform(query: Query, metadata: ArgumentMetadata): PageQuery {

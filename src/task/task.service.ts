@@ -24,7 +24,6 @@ export class TaskService {
     pageSize,
     keyword,
   }: PageQuery): Promise<[Task[], number]> {
-    console.log("task>keyword:", keyword);
     const query = {
       title: {
         $regex: new RegExp(keyword, "i"),
