@@ -25,7 +25,6 @@ export class UserService {
         { mobile: newUser.mobile },
       ],
     });
-    console.log("ex:", ex);
     if (ex.length) {
       throw new BadRequestException("用户已存在！");
     }

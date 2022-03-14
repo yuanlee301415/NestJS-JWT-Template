@@ -1,26 +1,26 @@
 import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  RequestTimeoutException,
-  CallHandler,
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
 } from "@nestjs/common";
+import { Request, Response } from "express";
 
-import { Observable, throwError, TimeoutError } from "rxjs";
-import { catchError, timeout } from "rxjs/operators";
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    console.error(exception);
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+    const status = exception.getStatus();
+    const message = exception.message;
 
-@Injectable()
-export class ErrorsInterceptor implements NestInterceptor {
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    return next.handle().pipe(
-      timeout(5000),
-      catchError((err) => {
-        if (err instanceof TimeoutError) {
-          return throwError(new RequestTimeoutException());
-        }
-        console.log("\nErrorsInterceptor>catchError>err:\n", err);
-        return throwError(err);
-      })
-    );
+    response.status(status).json({
+      statusCode: status,
+      path: request.url,
+      message,
+      timestamp: new Date().toISOString(),
+    });
   }
 }
