@@ -7,7 +7,7 @@ import {
   NoticeType,
   NoticeEventStatus,
   NotificationSubType,
-} from "../dto/notice.dto";
+} from "@/common/interfaces/Notice";
 import { NoticeDto } from "../dto/notice.dto";
 import { User } from "@/user/schemas/user.schema";
 
