@@ -6,14 +6,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { CreateRuleDto } from "../dto/create-rule.dto";
 import { UpdateRuleDto } from "../dto/update-rule.dto";
 import { User } from "@/user/schemas/user.schema";
-
-// 规则状态
-export enum RuleStatus {
-  Default, // 关闭
-  Processing, // 进行中
-  Success, // 已上线
-  Error, // 异常
-}
+import { RuleStatus } from "@/common/interfaces/Rule";
 
 @Schema({
   timestamps: true,

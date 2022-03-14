@@ -3,7 +3,8 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
 import { PageQuery } from "@/common/interfaces/PageQuery";
-import { Rule, RuleDocument, RuleStatus } from "./schemas/rule.schema";
+import { RuleStatus } from "@/common/interfaces/Rule";
+import { Rule, RuleDocument } from "./schemas/rule.schema";
 import { CreateRuleDto } from "./dto/create-rule.dto";
 import { UpdateRuleDto } from "./dto/update-rule.dto";
 
