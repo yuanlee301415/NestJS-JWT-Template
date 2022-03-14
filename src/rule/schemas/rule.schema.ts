@@ -2,9 +2,10 @@ import type { Document } from "mongoose";
 
 import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+
 import { CreateRuleDto } from "../dto/create-rule.dto";
 import { UpdateRuleDto } from "../dto/update-rule.dto";
-import { User } from "../../user/schemas/user.schema";
+import { User } from "@/user/schemas/user.schema";
 
 // 规则状态
 export enum RuleStatus {

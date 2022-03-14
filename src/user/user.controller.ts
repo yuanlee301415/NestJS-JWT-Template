@@ -10,9 +10,9 @@ import {
 
 import { UserService } from "./user.service";
 import { User } from "./schemas/user.schema";
-import { TransformIntQuery } from "../common/transform/query.transform";
-import { Resp } from "../common/interfaces/Resp";
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { TransformIntQuery } from "@/common/transform/query.transform";
+import { Resp } from "@/common/interfaces/Resp";
+import { JwtAuthGuard } from "@/auth/guards/jwt-auth.guard";
 
 @Controller("users")
 export class UserController {

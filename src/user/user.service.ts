@@ -2,11 +2,12 @@ import type { Model } from "mongoose";
 
 import { Injectable, Inject, BadRequestException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
+
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User, UserDocument } from "./schemas/user.schema";
-import { CryptoUtil } from "../common/utils/crypto.util";
-import { PageQuery } from "../common/interfaces/PageQuery";
-import RoleEnum from "../user/role.enum";
+import { CryptoUtil } from "@/common/utils/crypto.util";
+import { PageQuery } from "@/common/interfaces/PageQuery";
+import RoleEnum from "@/user/role.enum";
 
 @Injectable()
 export class UserService {

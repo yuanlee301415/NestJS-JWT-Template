@@ -1,19 +1,13 @@
 const faker = require("faker");
 
 import { Injectable } from "@nestjs/common";
-import { User } from "../user/schemas/user.schema";
-import { UserService } from "../user/user.service";
+import { User } from "@/user/schemas/user.schema";
+import { UserService } from "@/user/user.service";
 
-import { Rule } from "../rule/schemas/rule.schema";
-import { RuleService } from "../rule/rule.service";
-import { Task } from "../task/schemas/task.schema";
-import { TaskService } from "../task/task.service";
-import {
-  NoticeType,
-  NoticeEventStatus,
-  NotificationSubType,
-} from "../notice/dto/notice.dto";
-import { NoticeService } from "../notice/notice.service";
+import { Rule } from "@/rule/schemas/rule.schema";
+import { RuleService } from "@/rule/rule.service";
+import { Task } from "@/task/schemas/task.schema";
+import { TaskService } from "@/task/task.service";
 
 const TITLES = [
   "Alipay",
@@ -26,15 +20,12 @@ const TITLES = [
   "Webpack",
 ];
 
-const COVER_MAX = 4;
-
 @Injectable()
 export class InceptionService {
   constructor(
     private readonly userService: UserService,
     private readonly ruleService: RuleService,
-    private readonly taskService: TaskService,
-    private readonly noticeService: NoticeService
+    private readonly taskService: TaskService
   ) {}
 
   async main() {
@@ -98,36 +89,28 @@ export class InceptionService {
 
   /* mock rule data */
   async mockRule(admin, total: number = 11) {
-    const rules = Array.from({ length: total }).map((_, idx) => {
-      const rule = {
-        name: `Mock-rule-name-${idx}`,
-        desc: faker.lorem.text(),
-        createdBy: admin._id,
-      };
-      return rule;
-    });
+    const rules = Array.from({ length: total }).map((_, idx) => ({
+      name: `Mock-rule-name-${idx}`,
+      desc: faker.lorem.text(),
+      createdBy: admin._id,
+    }));
     return this.ruleService.insertManyRules(rules as Rule[]);
   }
 
   /* mock task data */
   async mockTask(users, admin, total: number = 11) {
-    const tasks = Array.from({ length: total }).map((_, idx) => {
-      const task = {
-        desc: `Mock-task-desc-${idx}`,
-        startTime: new Date(),
-        logo:
-          `/uploads/logos/` +
-          TITLES[idx % TITLES.length].toLowerCase() +
-          ".png",
-        owner: users[(Math.random() * users.length) | 0]._id,
-        subDescription: faker.lorem.text(),
-        title: `Mock-task-title-${idx}`,
-        percent: 0,
-        status: 0,
-        createdBy: admin._id,
-      };
-      return task;
-    });
+    const tasks = Array.from({ length: total }).map((_, idx) => ({
+      desc: `Mock-task-desc-${idx}`,
+      startTime: new Date(),
+      logo:
+        `/uploads/logos/` + TITLES[idx % TITLES.length].toLowerCase() + ".png",
+      owner: users[(Math.random() * users.length) | 0]._id,
+      subDescription: faker.lorem.text(),
+      title: `Mock-task-title-${idx}`,
+      percent: 0,
+      status: 0,
+      createdBy: admin._id,
+    }));
     return this.taskService.insertManyTasks(tasks as Task[]);
   }
 }

@@ -6,7 +6,8 @@ import {
   IsIn,
   IsMongoId,
 } from "class-validator";
-import { NotBlank } from "../../common/validator/NotBlank";
+
+import { NotBlank } from "@/common/validator/NotBlank";
 
 export class UpdateRuleDto {
   @NotBlank()

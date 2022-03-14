@@ -9,8 +9,9 @@ import {
   Req,
   Body,
 } from "@nestjs/common";
-import { TransformIntQuery } from "../common/transform/query.transform";
-import { Resp } from "../common/interfaces/Resp";
+
+import { TransformIntQuery } from "@/common/transform/query.transform";
+import { Resp } from "@/common/interfaces/Resp";
 
 import { TaskDto } from "./dto/task.dto";
 import { TaskService } from "./task.service";

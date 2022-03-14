@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
-import { UserModule } from "../user/user.module";
+import { UserModule } from "@/user/user.module";
 
 import { InceptionService } from "./inception.service";
-import { RuleModule } from "../rule/rule.module";
-import { TaskModule } from "../task/task.module";
-import { NoticeModule } from "../notice/notice.module";
+import { RuleModule } from "@/rule/rule.module";
+import { TaskModule } from "@/task/task.module";
+import { NoticeModule } from "@/notice/notice.module";
 
 @Module({
   imports: [UserModule, RuleModule, TaskModule, NoticeModule],

@@ -3,7 +3,7 @@ import type { Document } from "mongoose";
 import * as mongoose from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-import { User } from "../../user/schemas/user.schema";
+import { User } from "@/user/schemas/user.schema";
 import { TaskDto } from "../dto/task.dto";
 
 @Schema({

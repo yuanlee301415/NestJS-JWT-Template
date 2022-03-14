@@ -1,14 +1,15 @@
 import type { Document } from "mongoose";
+
+import { Types } from "mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+
 import {
   NoticeType,
   NoticeEventStatus,
   NotificationSubType,
 } from "../dto/notice.dto";
-
-import { Types } from "mongoose";
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { User } from "../../user/schemas/user.schema";
 import { NoticeDto } from "../dto/notice.dto";
+import { User } from "@/user/schemas/user.schema";
 
 @Schema({
   timestamps: true,

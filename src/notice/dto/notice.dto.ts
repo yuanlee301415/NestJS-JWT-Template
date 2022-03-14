@@ -8,7 +8,7 @@ import {
   IsString,
 } from "class-validator";
 
-import { NotBlank } from "../../common/validator/NotBlank";
+import { NotBlank } from "@/common/validator/NotBlank";
 
 // 通知类型
 export enum NoticeType {

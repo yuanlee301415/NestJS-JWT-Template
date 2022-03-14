@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { IsMongoId, Length, IsOptional } from "class-validator";
-import { NotBlank } from "../../common/validator/NotBlank";
+
+import { NotBlank } from "@/common/validator/NotBlank";
 
 export class CreateRuleDto {
   @NotBlank()

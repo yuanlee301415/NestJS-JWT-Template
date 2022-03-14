@@ -2,7 +2,8 @@ import type { Model } from "mongoose";
 
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { PageQuery } from "../common/interfaces/PageQuery";
+
+import { PageQuery } from "@/common/interfaces/PageQuery";
 import { TaskDto } from "./dto/task.dto";
 import { Task, TaskDocument } from "./schemas/task.schema";
 

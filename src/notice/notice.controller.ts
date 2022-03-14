@@ -8,8 +8,8 @@ import {
   Body,
 } from "@nestjs/common";
 
-import { TransformIntQuery } from "../common/transform/query.transform";
-import { Resp } from "../common/interfaces/Resp";
+import { TransformIntQuery } from "@/common/transform/query.transform";
+import { Resp } from "@/common/interfaces/Resp";
 import { Notice } from "./schemas/notice.schema";
 import { NoticeService } from "./notice.service";
 import { NoticeDto } from "./dto/notice.dto";
