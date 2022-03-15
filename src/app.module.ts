@@ -14,11 +14,7 @@ import { TaskModule } from "./task/task.module";
 import { RuleModule } from "./rule/rule.module";
 import { InceptionModule } from "./inception/inception.module";
 import { NoticeModule } from "./notice/notice.module";
-import { ResourceModelService } from './resource-model/resource-model.service';
-import { ResourceModelController } from './resource-model/resource-model.controller';
 import { ResourceModelModule } from './resource-model/resource-model.module';
-import { BizTypeService } from './biz-type/biz-type.service';
-import { BizTypeController } from './biz-type/biz-type.controller';
 import { BizTypeModule } from './biz-type/biz-type.module';
 
 @Module({
@@ -42,15 +38,13 @@ import { BizTypeModule } from './biz-type/biz-type.module';
     ResourceModelModule,
     BizTypeModule,
   ],
-  controllers: [AppController, ResourceModelController, BizTypeController],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
     },
-    AppService,
-    ResourceModelService,
-    BizTypeService,
+    AppService
   ],
 })
 export class AppModule {}

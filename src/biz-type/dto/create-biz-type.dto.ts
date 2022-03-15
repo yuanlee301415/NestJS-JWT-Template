@@ -18,6 +18,4 @@ export class CreateBizTypeDto {
   // @IsOptional()
   @Length(2, 50)
   readonly desc: string;
-
-  readonly bizTypes: string[];
 }
