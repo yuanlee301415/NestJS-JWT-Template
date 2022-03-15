@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller } from "@nestjs/common";
 
-@Controller('resource-model')
+@Controller("resource-model")
 export class ResourceModelController {}
