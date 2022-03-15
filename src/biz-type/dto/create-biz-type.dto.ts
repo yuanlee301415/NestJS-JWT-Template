@@ -11,11 +11,11 @@ export class CreateBizTypeDto {
   @Length(2, 10)
   readonly displayName: string;
 
-  // @IsOptional()
+  @IsOptional()
   @IsBoolean()
   readonly system: boolean;
 
-  // @IsOptional()
+  @IsOptional()
   @Length(2, 50)
   readonly desc: string;
 }

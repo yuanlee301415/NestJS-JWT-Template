@@ -9,7 +9,8 @@ import {CreateBizTypeDto} from "@/biz-type/dto/create-biz-type.dto";
 export class BizType {
     @Prop({
         type: String,
-        index: true
+        index: true,
+        unique: true
     })
     name: string
 
@@ -27,14 +28,13 @@ export class BizType {
         type: String
     })
     desc: string
-/*
+
     constructor(bizType: CreateBizTypeDto) {
         this.name = bizType.name
         this.displayName = bizType.displayName
         this.system = bizType.system
         this.desc = bizType.desc
     }
-*/
 }
 
 export type BizTypeDocument = BizType & Document

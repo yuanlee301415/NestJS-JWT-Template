@@ -11,8 +11,8 @@ export class BizTypeService {
         @InjectModel(BizType.name) private readonly bizTypeModel: Model<BizTypeDocument>
     ) {}
 
-    async create(createBizTypeDto: CreateBizTypeDto): Promise<BizType> {
-        return this.bizTypeModel.create(new BizType())
+    async create(body: CreateBizTypeDto): Promise<BizType> {
+        return this.bizTypeModel.create(new BizType(body))
     }
 
     async findAll(): Promise<BizType[]>{
