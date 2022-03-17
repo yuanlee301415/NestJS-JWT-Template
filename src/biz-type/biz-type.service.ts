@@ -49,4 +49,8 @@ export class BizTypeService {
       }
     );
   }
+
+  async removeById(id: string): Promise<BizType> {
+    return this.bizTypeModel.findByIdAndRemove(id);
+  }
 }

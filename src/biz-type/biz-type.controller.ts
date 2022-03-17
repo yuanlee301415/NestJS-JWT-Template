@@ -1,4 +1,13 @@
-import { Controller, Body, Get, Post, Put, Query, Param } from "@nestjs/common";
+import {
+  Controller,
+  Body,
+  Get,
+  Post,
+  Put,
+  Query,
+  Param,
+  Delete,
+} from "@nestjs/common";
 
 import { Resp } from "@/common/interfaces/Resp";
 import { TransformIntQuery } from "@/common/transform/query.transform";
@@ -53,5 +62,10 @@ export class BizTypeController {
       code: 0,
       data,
     };
+  }
+
+  @Delete(":id")
+  async removeById(@Param("id") id: string): Promise<BizType> {
+    return this.bizTypeService.removeById(id);
   }
 }
