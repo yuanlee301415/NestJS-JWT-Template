@@ -34,4 +34,11 @@ export class BizTypeService {
       this.bizTypeModel.countDocuments(),
     ]);
   }
+
+  async findById(id: string): Promise<BizType> {
+    return this.bizTypeModel.findById(id).populate({
+      path: "createdBy",
+      select: "username avatar",
+    });
+  }
 }

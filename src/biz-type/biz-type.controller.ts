@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Post, Query } from "@nestjs/common";
+import { Controller, Body, Get, Post, Query, Param } from "@nestjs/common";
 
 import { Resp } from "@/common/interfaces/Resp";
 import { TransformIntQuery } from "@/common/transform/query.transform";
@@ -31,5 +31,14 @@ export class BizTypeController {
       current: query.current,
       pageSize: query.pageSize,
     };
+  }
+
+  @Get(':id')
+  async findById(@Param('id') id): Promise<Resp<BizType>> {
+    const data = await this.bizTypeService.findById(id)
+    return {
+      code: 0,
+      data
+    }
   }
 }
