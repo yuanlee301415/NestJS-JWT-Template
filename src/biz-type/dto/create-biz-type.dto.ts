@@ -1,4 +1,5 @@
-import { Length, IsBoolean, IsOptional } from "class-validator";
+import { Length, IsBoolean, IsOptional, IsMongoId } from "class-validator";
+import { Types } from "mongoose";
 
 import { NotBlank } from "@/common/validator/NotBlank";
 
@@ -18,4 +19,8 @@ export class CreateBizTypeDto {
   @IsOptional()
   @Length(2, 50)
   readonly desc: string;
+
+  @IsOptional()
+  @IsMongoId()
+  readonly createdBy: Types.ObjectId;
 }

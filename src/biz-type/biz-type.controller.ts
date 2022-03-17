@@ -1,6 +1,7 @@
-import { Controller, Body, Get, Post } from "@nestjs/common";
+import { Controller, Body, Get, Post, Query } from "@nestjs/common";
 
 import { Resp } from "@/common/interfaces/Resp";
+import { TransformIntQuery } from "@/common/transform/query.transform";
 import { BizTypeService } from "@/biz-type/biz-type.service";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";
 import { BizType } from "@/biz-type/schemas/biz-type.shema";
@@ -15,6 +16,20 @@ export class BizTypeController {
     return {
       code: 0,
       data,
+    };
+  }
+
+  @Get()
+  async findAll(
+    @Query(new TransformIntQuery()) query
+  ): Promise<Resp<BizType[]>> {
+    const [data, total] = await this.bizTypeService.findAll(query);
+    return {
+      code: 0,
+      data,
+      total,
+      current: query.current,
+      pageSize: query.pageSize,
     };
   }
 }

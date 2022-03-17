@@ -1,3 +1,5 @@
+import { BizType } from "@/biz-type/schemas/biz-type.shema";
+
 const faker = require("faker");
 
 import { Injectable } from "@nestjs/common";
@@ -8,6 +10,7 @@ import { Rule } from "@/rule/schemas/rule.schema";
 import { RuleService } from "@/rule/rule.service";
 import { Task } from "@/task/schemas/task.schema";
 import { TaskService } from "@/task/task.service";
+import { BizTypeService } from "@/biz-type/biz-type.service";
 
 const TITLES = [
   "Alipay",
@@ -25,7 +28,8 @@ export class InceptionService {
   constructor(
     private readonly userService: UserService,
     private readonly ruleService: RuleService,
-    private readonly taskService: TaskService
+    private readonly taskService: TaskService,
+    private readonly bizTypeService: BizTypeService
   ) {}
 
   async main() {
@@ -54,15 +58,18 @@ export class InceptionService {
     console.log("admin:\n", admin);
 
     // 查询后置初始数据
-    const [[rules, ruleTotal], [tasks, taskTotal]] = await Promise.all([
-      this.ruleService.findAll({ current: 1, pageSize: 1 }),
-      this.taskService.findAll({ current: 1, pageSize: 1 }),
-    ]);
+    const [[rules, ruleTotal], [tasks, taskTotal], [bizTypes, bizTypeTotal]] =
+      await Promise.all([
+        this.ruleService.findAll({ current: 1, pageSize: 1 }),
+        this.taskService.findAll({ current: 1, pageSize: 1 }),
+        this.bizTypeService.findAll({ current: 1, pageSize: 1 }),
+      ]);
 
     // 创建后置初始数据
     const postInceptions = [
       ruleTotal ? rules : this.mockRule(admin, 11),
       taskTotal ? tasks : this.mockTask(newUsers, admin, 11),
+      bizTypeTotal ? bizTypes : this.mockBizType(admin),
     ];
     const [newRules, newTasks] = await Promise.all(postInceptions);
     console.log("newRules[0]:", newRules[0]);
@@ -112,5 +119,36 @@ export class InceptionService {
       createdBy: admin._id,
     }));
     return this.taskService.insertManyTasks(tasks as Task[]);
+  }
+
+  /* mock bizType data */
+  async mockBizType(admin) {
+    const bizTypes = [
+      {
+        name: "monitor",
+        displayName: "监控",
+        system: true,
+        createdBy: admin._id,
+      },
+      {
+        name: "asset",
+        displayName: "资产",
+        system: true,
+        createdBy: admin._id,
+      },
+      {
+        name: "video",
+        displayName: "视频",
+        system: true,
+        createdBy: admin._id,
+      },
+      {
+        name: "iot",
+        displayName: "物联网",
+        system: true,
+        createdBy: admin._id,
+      },
+    ];
+    return this.bizTypeService.insertMany(bizTypes as BizType[]);
   }
 }
