@@ -19,8 +19,8 @@ export class NoticeController {
   constructor(private readonly noticeService: NoticeService) {}
 
   @Post()
-  async create(@Body() noticeDto: NoticeDto): Promise<Resp<Notice>> {
-    const data = await this.noticeService.create(noticeDto);
+  async create(@Body() body: NoticeDto): Promise<Resp<Notice>> {
+    const data = await this.noticeService.create(body);
     return {
       code: 0,
       data,

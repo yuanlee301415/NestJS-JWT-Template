@@ -13,8 +13,8 @@ export class RuleService {
   constructor(
     @InjectModel(Rule.name) private readonly ruleModel: Model<RuleDocument>
   ) {}
-  async create(createRuleDto: CreateRuleDto): Promise<Rule> {
-    return this.ruleModel.create(new Rule(createRuleDto as Rule));
+  async create(body: CreateRuleDto): Promise<Rule> {
+    return this.ruleModel.create(new Rule(body as Rule));
   }
 
   async insertManyRules(
@@ -45,10 +45,10 @@ export class RuleService {
     });
   }
 
-  async updateOne(id: string, updateRuleDto: UpdateRuleDto): Promise<Rule> {
+  async updateOne(id: string, body: UpdateRuleDto): Promise<Rule> {
     return this.ruleModel.findByIdAndUpdate(
       id,
-      { ...new Rule(updateRuleDto), status: RuleStatus.Success },
+      { ...new Rule(body), status: RuleStatus.Success },
       {
         new: true,
         useFindAndModify: false,

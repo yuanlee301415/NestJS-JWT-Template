@@ -16,8 +16,8 @@ export class NoticeService {
     return this.noticeModel.insertMany(notices.map((_) => new Notice(_)));
   }
 
-  async create(noticeDto: NoticeDto): Promise<Notice> {
-    return this.noticeModel.create(new Notice(noticeDto));
+  async create(body: NoticeDto): Promise<Notice> {
+    return this.noticeModel.create(new Notice(body));
   }
 
   async findAll({ current, pageSize }: PageQuery): Promise<[Notice[], number]> {

@@ -28,14 +28,8 @@ export class RightsController {
   ) {}
 
   @Post("register")
-  async register(@Body() createUserDto: CreateUserDto): Promise<Resp<User>> {
-    console.log(
-      "RightsController>register>user>createUserDto:\n",
-      createUserDto
-    );
-    const data = await this.rightsService.register(createUserDto);
-    console.log("RightsController>register>data:\n", data);
-
+  async register(@Body() body: CreateUserDto): Promise<Resp<User>> {
+    const data = await this.rightsService.register(body);
     return {
       code: 0,
       data,
@@ -50,8 +44,11 @@ export class RightsController {
   ): Promise<Resp<Token>> {
     console.log("RightsController>login>req.user:", req.user);
     console.log("RightsController>login>body:", body);
-    if (!req.user.roles || !req.user.roles.includes(body.type))
-      throw new UnauthorizedException(); // 无权限
+
+    // 无权限
+    if (!req.user.roles || !req.user.roles.includes(body.type)) {
+      throw new UnauthorizedException();
+    }
 
     return {
       code: 0,

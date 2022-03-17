@@ -22,8 +22,8 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post()
-  async create(@Req() req, @Body() taskTdo: TaskDto): Promise<Resp<Task>> {
-    const data = await this.taskService.create(taskTdo);
+  async create(@Req() req, @Body() body: TaskDto): Promise<Resp<Task>> {
+    const data = await this.taskService.create(body);
     return {
       code: 0,
       data,
@@ -56,13 +56,9 @@ export class TaskController {
   @Put(":id")
   async updateOne(
     @Param("id") id: string,
-    @Body() updateTaskDto: TaskDto
+    @Body() body: TaskDto
   ): Promise<Resp<Task>> {
-    console.log(
-      "PostController>TaskController>updateTaskDto:\n",
-      updateTaskDto
-    );
-    const data = await this.taskService.updateOne(id, updateTaskDto);
+    const data = await this.taskService.updateOne(id, body);
     return {
       code: 0,
       data,

@@ -8,8 +8,8 @@ import { UserService } from "@/user/user.service";
 export class RightsService {
   constructor(private readonly userServer: UserService) {}
 
-  async register(createUserDto: CreateUserDto): Promise<User> {
-    return await this.userServer.create(createUserDto);
+  async register(body: CreateUserDto): Promise<User> {
+    return await this.userServer.create(body);
   }
 
   // Todo: 未登录时的临时方案，最终使用 getAuthUser 代替

@@ -22,8 +22,8 @@ export class RuleController {
   constructor(private readonly ruleService: RuleService) {}
 
   @Post()
-  async create(@Body() createRuleDto: CreateRuleDto): Promise<Resp<Rule>> {
-    const data = await this.ruleService.create(createRuleDto);
+  async create(@Body() body: CreateRuleDto): Promise<Resp<Rule>> {
+    const data = await this.ruleService.create(body);
     return {
       code: 0,
       data,
@@ -54,9 +54,9 @@ export class RuleController {
   @Put(":id")
   async updateOne(
     @Param("id") id: string,
-    @Body() updateRuleDto: UpdateRuleDto
+    @Body() body: UpdateRuleDto
   ): Promise<Resp<Rule>> {
-    const data = await this.ruleService.updateOne(id, new Rule(updateRuleDto));
+    const data = await this.ruleService.updateOne(id, new Rule(body));
     return {
       code: 0,
       data,

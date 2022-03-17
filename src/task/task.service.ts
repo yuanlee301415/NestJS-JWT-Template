@@ -12,8 +12,8 @@ export class TaskService {
   constructor(
     @InjectModel(Task.name) private readonly taskModel: Model<TaskDocument>
   ) {}
-  async create(taskDto: TaskDto): Promise<Task> {
-    return this.taskModel.create(new Task(taskDto));
+  async create(body: TaskDto): Promise<Task> {
+    return this.taskModel.create(new Task(body));
   }
 
   async insertManyTasks(tasks: TaskDto[]): Promise<Task[]> {
@@ -61,8 +61,8 @@ export class TaskService {
       });
   }
 
-  async updateOne(id: string, updateTaskDto: TaskDto): Promise<Task> {
-    return this.taskModel.findByIdAndUpdate(id, new Task(updateTaskDto), {
+  async updateOne(id: string, body: TaskDto): Promise<Task> {
+    return this.taskModel.findByIdAndUpdate(id, new Task(body), {
       new: true,
       useFindAndModify: false,
     });

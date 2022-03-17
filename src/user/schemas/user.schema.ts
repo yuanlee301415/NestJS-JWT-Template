@@ -91,12 +91,6 @@ export class User {
   roles: string;
 
   constructor(user: CreateUserDto) {
-    const RE = /^[a-z]\w{4,20}$/i;
-    if (!RE.test(user.username)) {
-      throw new BadRequestException(
-        `[User.username failed]:: 用户名只支持: 字母开头，允许数字、下划线，不区分大小写，长度：5-20位`
-      );
-    }
     this.username = user.username;
     this.email = user.email;
     this.mobile = user.mobile;

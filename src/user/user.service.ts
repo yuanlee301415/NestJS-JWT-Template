@@ -16,12 +16,18 @@ export class UserService {
     @Inject(CryptoUtil) private readonly cryptoUtil: CryptoUtil
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const newUser = new User(createUserDto);
+  async create(body: CreateUserDto): Promise<User> {
+    if (!/^[a-z]\w{4,19}$/i.test(body.username)) {
+      throw new BadRequestException(
+        "用户名只支持: 字母开头，允许数字、下划线，不区分大小写，长度：5-20位"
+      );
+    }
+
+    const newUser = new User(body);
     const ret = await this.userModel.create({
       ...newUser,
       roles: [RoleEnum.Web], // 默认为：前台角色
-      password: this.cryptoUtil.encryptPassword(createUserDto.password),
+      password: this.cryptoUtil.encryptPassword(body.password),
     });
 
     return this.findById(ret._id);
