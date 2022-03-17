@@ -81,7 +81,7 @@ export class InceptionService {
           username: _,
           email: `${_}@163.com`,
           password: "123456",
-          mobile: `13812345678`,
+          mobile: `1380000000${idx}`,
         })
       )
     );

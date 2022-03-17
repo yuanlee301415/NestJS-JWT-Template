@@ -18,22 +18,12 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new User(createUserDto);
-    const ex = await this.userModel.find({
-      $or: [
-        { username: newUser.username },
-        { email: newUser.email },
-        { mobile: newUser.mobile },
-      ],
-    });
-    if (ex.length) {
-      throw new BadRequestException("用户已存在！");
-    }
-
     const ret = await this.userModel.create({
       ...newUser,
       roles: [RoleEnum.Web], // 默认为：前台角色
       password: this.cryptoUtil.encryptPassword(createUserDto.password),
     });
+
     return this.findById(ret._id);
   }
 

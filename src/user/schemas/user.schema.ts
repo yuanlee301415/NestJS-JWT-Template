@@ -14,6 +14,7 @@ export class User {
   @Prop({
     type: String,
     required: true,
+    unique: true,
     index: true,
   })
   username: string;
@@ -21,6 +22,7 @@ export class User {
   @Prop({
     type: String,
     required: true,
+    unique: true,
     index: true,
   })
   email: string;
@@ -28,14 +30,15 @@ export class User {
   @Prop({
     type: String,
     required: true,
+    unique: true,
   })
-  password: string;
+  mobile: string;
 
   @Prop({
     type: String,
     required: true,
   })
-  mobile: string;
+  password: string;
 
   @Prop({
     type: String,
@@ -98,9 +101,6 @@ export class User {
     this.email = user.email;
     this.mobile = user.mobile;
     this.password = user.password;
-    // this.roles = Array.prototype.concat(user.roles);
-    // this.avatar = user.avatar
-    // "/uploads/avatars/" + avatars[(Math.random() * avatars.length) | 0];
   }
 }
 
