@@ -3,6 +3,7 @@ import { Length, IsOptional } from "class-validator";
 import { NotBlank } from "@/common/validator/NotBlank";
 
 export class UpdateBizTypeDto {
+  @IsOptional()
   @NotBlank()
   @Length(2, 10)
   readonly displayName?: string;

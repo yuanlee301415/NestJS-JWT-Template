@@ -5,7 +5,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { User } from "@/user/schemas/user.schema";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";
-import {UpdateBizTypeDto} from "@/biz-type/dto/update-biz-type.dto";
+import { UpdateBizTypeDto } from "@/biz-type/dto/update-biz-type.dto";
 
 @Schema({
   timestamps: true,

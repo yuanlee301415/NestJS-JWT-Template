@@ -16,6 +16,7 @@ export class CreateBizTypeDto {
   readonly system?: boolean;
 
   @IsOptional()
+  @NotBlank()
   @Length(2, 50)
   readonly desc?: string;
 }

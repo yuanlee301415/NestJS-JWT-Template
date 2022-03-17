@@ -6,8 +6,6 @@ import { PageQuery } from "@/common/interfaces/PageQuery";
 import { BizType, BizTypeDocument } from "@/biz-type/schemas/biz-type.shema";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";
 import { UpdateBizTypeDto } from "@/biz-type/dto/update-biz-type.dto";
-import {Rule} from "@/rule/schemas/rule.schema";
-import {RuleStatus} from "@/common/interfaces/Rule";
 
 @Injectable()
 export class BizTypeService {
@@ -38,14 +36,17 @@ export class BizTypeService {
     return this.bizTypeModel.findById(id);
   }
 
-/*  async updateById(id: string, body: UpdateBizTypeDto): Promise<BizType> {
+  async updateById(id: string, body: UpdateBizTypeDto): Promise<BizType> {
     return this.bizTypeModel.findByIdAndUpdate(
-        id,
-        new BizType(body),
-        {
-          new: true,
-          useFindAndModify: false,
-        }
+      id,
+      {
+        displayName: body.displayName,
+        desc: body.desc,
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
     );
-  }*/
+  }
 }

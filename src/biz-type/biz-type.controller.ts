@@ -5,7 +5,7 @@ import { TransformIntQuery } from "@/common/transform/query.transform";
 import { BizTypeService } from "@/biz-type/biz-type.service";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";
 import { BizType } from "@/biz-type/schemas/biz-type.shema";
-import {UpdateBizTypeDto} from "@/biz-type/dto/update-biz-type.dto";
+import { UpdateBizTypeDto } from "@/biz-type/dto/update-biz-type.dto";
 
 @Controller("biz-type")
 export class BizTypeController {
@@ -34,21 +34,24 @@ export class BizTypeController {
     };
   }
 
-  @Get(':id')
-  async findById(@Param('id') id): Promise<Resp<BizType>> {
-    const data = await this.bizTypeService.findById(id)
+  @Get(":id")
+  async findById(@Param("id") id): Promise<Resp<BizType>> {
+    const data = await this.bizTypeService.findById(id);
     return {
       code: 0,
-      data
-    }
+      data,
+    };
   }
 
-/*  @Put(':id')
-  async updateById(@Param('id') id: string, @Body() body: UpdateBizTypeDto): Promise<Resp<BizType>> {
-    const data = await this.bizTypeService.updateById(id, body)
+  @Put(":id")
+  async updateById(
+    @Param("id") id: string,
+    @Body() body: UpdateBizTypeDto
+  ): Promise<Resp<BizType>> {
+    const data = await this.bizTypeService.updateById(id, body);
     return {
       code: 0,
-      data
-    }
-  }*/
+      data,
+    };
+  }
 }
