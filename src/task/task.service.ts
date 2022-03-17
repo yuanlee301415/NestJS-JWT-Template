@@ -16,10 +16,6 @@ export class TaskService {
     return this.taskModel.create(new Task(body));
   }
 
-  async insertManyTasks(tasks: TaskDto[]): Promise<Task[]> {
-    return this.taskModel.insertMany(tasks.map((_) => new Task(_)));
-  }
-
   async findAll({
     current,
     pageSize,

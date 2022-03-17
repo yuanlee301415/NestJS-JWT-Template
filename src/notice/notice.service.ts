@@ -12,10 +12,6 @@ export class NoticeService {
     @InjectModel(Notice.name) readonly noticeModel: Model<NoticeDocument>
   ) {}
 
-  async insertMany(notices: NoticeDto[]): Promise<Notice[]> {
-    return this.noticeModel.insertMany(notices.map((_) => new Notice(_)));
-  }
-
   async create(body: NoticeDto): Promise<Notice> {
     return this.noticeModel.create(new Notice(body));
   }

@@ -17,12 +17,6 @@ export class RuleService {
     return this.ruleModel.create(new Rule(body as Rule));
   }
 
-  async insertManyRules(
-    rules: (CreateRuleDto & UpdateRuleDto)[]
-  ): Promise<Rule[]> {
-    return this.ruleModel.insertMany(rules.map((_) => new Rule(_)));
-  }
-
   async findAll({ current, pageSize }: PageQuery): Promise<[Rule[], number]> {
     return Promise.all([
       this.ruleModel

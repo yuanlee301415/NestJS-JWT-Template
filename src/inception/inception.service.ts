@@ -1,15 +1,14 @@
-import { BizType } from "@/biz-type/schemas/biz-type.shema";
-
 const faker = require("faker");
 
 import { Injectable } from "@nestjs/common";
+
 import { User } from "@/user/schemas/user.schema";
 import { UserService } from "@/user/user.service";
-
 import { Rule } from "@/rule/schemas/rule.schema";
 import { RuleService } from "@/rule/rule.service";
 import { Task } from "@/task/schemas/task.schema";
 import { TaskService } from "@/task/task.service";
+import { BizType } from "@/biz-type/schemas/biz-type.shema";
 import { BizTypeService } from "@/biz-type/biz-type.service";
 
 const TITLES = [
@@ -34,7 +33,7 @@ export class InceptionService {
 
   async main() {
     // 查询前置初始数据
-    const [[users]] = await Promise.all([
+    const [[users]]: Array<[User[], number]> = await Promise.all([
       this.userService.findAll({ current: 1, pageSize: 0 }),
     ]);
 
@@ -52,28 +51,37 @@ export class InceptionService {
           ]),
     ];
 
-    const [newUsers] = await Promise.all(preInceptions);
+    const [newUsers]: Array<User[]> = await Promise.all(preInceptions);
     console.log("newUsers[0]:", newUsers[0]);
     const admin = newUsers.find((_) => _.username === "admin");
     console.log("admin:\n", admin);
 
     // 查询后置初始数据
-    const [[rules, ruleTotal], [tasks, taskTotal], [bizTypes, bizTypeTotal]] =
-      await Promise.all([
-        this.ruleService.findAll({ current: 1, pageSize: 1 }),
-        this.taskService.findAll({ current: 1, pageSize: 1 }),
-        this.bizTypeService.findAll({ current: 1, pageSize: 1 }),
-      ]);
+    const [[rules, ruleTotal], [tasks, taskTotal], [bizTypes, bizTypeTotal]]: [
+      [Rule[], number],
+      [Task[], number],
+      [BizType[], number]
+    ] = await Promise.all([
+      this.ruleService.findAll({ current: 1, pageSize: 1 }),
+      this.taskService.findAll({ current: 1, pageSize: 1 }),
+      this.bizTypeService.findAll({ current: 1, pageSize: 1 }),
+    ]);
 
     // 创建后置初始数据
-    const postInceptions = [
+    const postInceptions: [
+      Rule[] | Promise<Rule[]>,
+      Task[] | Promise<Task[]>,
+      BizType[] | Promise<BizType[]>
+    ] = [
       ruleTotal ? rules : this.mockRule(admin, 11),
       taskTotal ? tasks : this.mockTask(newUsers, admin, 11),
       bizTypeTotal ? bizTypes : this.mockBizType(admin),
     ];
-    const [newRules, newTasks] = await Promise.all(postInceptions);
+    const [newRules, newTasks, newBizTypes]: (Rule[] | Task[] | BizType[])[] =
+      await Promise.all(postInceptions);
     console.log("newRules[0]:", newRules[0]);
     console.log("newTasks[0]:", newTasks[0]);
+    console.log("newBizTypes[0]:", newBizTypes[0]);
 
     console.log(
       `---------------------------------------AppService>onModuleInit::end---------------------------------------\n\n`
@@ -95,35 +103,35 @@ export class InceptionService {
   }
 
   /* mock rule data */
-  async mockRule(admin, total: number = 11) {
-    const rules = Array.from({ length: total }).map((_, idx) => ({
+  async mockRule(admin, total: number = 11): Promise<Rule[]> {
+    const data = Array.from({ length: total }).map((_, idx) => ({
       name: `Mock-rule-name-${idx}`,
       desc: faker.lorem.text(),
       createdBy: admin._id,
     }));
-    return this.ruleService.insertManyRules(rules as Rule[]);
+    return Promise.all(data.map((_) => this.ruleService.create(_)));
   }
 
   /* mock task data */
-  async mockTask(users, admin, total: number = 11) {
-    const tasks = Array.from({ length: total }).map((_, idx) => ({
+  async mockTask(users, admin, total: number = 11): Promise<Task[]> {
+    const data = Array.from({ length: total }).map((_, idx) => ({
       desc: `Mock-task-desc-${idx}`,
       startTime: new Date(),
       logo:
         `/uploads/logos/` + TITLES[idx % TITLES.length].toLowerCase() + ".png",
       owner: users[(Math.random() * users.length) | 0]._id,
-      subDescription: faker.lorem.text(),
+      // subDescription: faker.lorem.text(),
       title: `Mock-task-title-${idx}`,
       percent: 0,
       status: 0,
       createdBy: admin._id,
     }));
-    return this.taskService.insertManyTasks(tasks as Task[]);
+    return Promise.all(data.map((_) => this.taskService.create(_)));
   }
 
   /* mock bizType data */
-  async mockBizType(admin) {
-    const bizTypes = [
+  async mockBizType(admin): Promise<BizType[]> {
+    const data = [
       {
         name: "monitor",
         displayName: "监控",
@@ -149,6 +157,6 @@ export class InceptionService {
         createdBy: admin._id,
       },
     ];
-    return this.bizTypeService.insertMany(bizTypes as BizType[]);
+    return Promise.all(data.map((_) => this.bizTypeService.create(_)));
   }
 }

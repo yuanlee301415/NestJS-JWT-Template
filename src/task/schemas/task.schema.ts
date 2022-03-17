@@ -38,11 +38,6 @@ export class Task {
   owner: mongoose.Schema.Types.ObjectId;
 
   @Prop({
-    type: String,
-  })
-  subDescription: string;
-
-  @Prop({
     type: Number,
   })
   percent: number;
@@ -53,19 +48,24 @@ export class Task {
   status: number;
 
   @Prop({
+    type: String,
+  })
+  subDescription?: string;
+
+  @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: User.name,
   })
-  createdBy: mongoose.Schema.Types.ObjectId;
+  createdBy?: mongoose.Schema.Types.ObjectId;
 
   constructor(task: TaskDto) {
     this.title = task.title;
     this.startTime = task.startTime;
     this.logo = task.logo;
     this.owner = task.owner;
-    this.subDescription = task.subDescription;
     this.percent = (Math.random() * 100) | 0;
     this.status = (this.percent / 25) | 0;
+    this.subDescription = task.subDescription;
     this.createdBy = task.createdBy;
   }
 }

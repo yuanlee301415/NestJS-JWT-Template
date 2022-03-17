@@ -24,19 +24,20 @@ export class BizType {
 
   @Prop({
     type: Boolean,
+    default: false,
   })
-  system: boolean;
+  system?: boolean;
 
   @Prop({
     type: String,
   })
-  desc: string;
+  desc?: string;
 
   @Prop({
     type: Types.ObjectId,
     ref: User.name,
   })
-  createdBy: Types.ObjectId;
+  createdBy?: Types.ObjectId;
 
   constructor(bizType: CreateBizTypeDto) {
     this.name = bizType.name;

@@ -34,8 +34,4 @@ export class BizTypeService {
       this.bizTypeModel.countDocuments(),
     ]);
   }
-
-  async insertMany(bizTypes: CreateBizTypeDto[]): Promise<BizType[]> {
-    return this.bizTypeModel.insertMany(bizTypes.map((_) => new BizType(_)));
-  }
 }

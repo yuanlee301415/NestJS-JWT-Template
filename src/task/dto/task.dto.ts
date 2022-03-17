@@ -22,9 +22,9 @@ export class TaskDto {
 
   @IsOptional()
   @MaxLength(200)
-  readonly subDescription: string;
+  readonly subDescription?: string;
 
   @IsOptional()
   @IsMongoId()
-  readonly createdBy: mongoose.Schema.Types.ObjectId;
+  readonly createdBy?: mongoose.Schema.Types.ObjectId;
 }

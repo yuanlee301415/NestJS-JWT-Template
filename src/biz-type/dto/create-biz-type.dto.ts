@@ -18,9 +18,9 @@ export class CreateBizTypeDto {
 
   @IsOptional()
   @Length(2, 50)
-  readonly desc: string;
+  readonly desc?: string;
 
   @IsOptional()
   @IsMongoId()
-  readonly createdBy: Types.ObjectId;
+  readonly createdBy?: Types.ObjectId;
 }

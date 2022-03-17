@@ -54,13 +54,13 @@ export class Notice {
     type: Types.ObjectId,
     ref: User.name,
   })
-  sender: Types.ObjectId; // 发送方
+  sender?: Types.ObjectId; // 发送方
 
   @Prop({
     type: Types.ObjectId,
     ref: User.name,
   })
-  receiver: Types.ObjectId; // 接收方
+  receiver?: Types.ObjectId; // 接收方
 
   constructor(notice: NoticeDto) {
     this.title = notice.title;
