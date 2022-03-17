@@ -5,6 +5,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { User } from "@/user/schemas/user.schema";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";
+import {UpdateBizTypeDto} from "@/biz-type/dto/update-biz-type.dto";
 
 @Schema({
   timestamps: true,
@@ -33,18 +34,11 @@ export class BizType {
   })
   desc?: string;
 
-  @Prop({
-    type: Types.ObjectId,
-    ref: User.name,
-  })
-  createdBy?: Types.ObjectId;
-
-  constructor(bizType: CreateBizTypeDto) {
+  constructor(bizType: CreateBizTypeDto & UpdateBizTypeDto) {
     this.name = bizType.name;
     this.displayName = bizType.displayName;
     this.system = bizType.system;
     this.desc = bizType.desc;
-    this.createdBy = bizType.createdBy;
   }
 }
 

@@ -1,10 +1,11 @@
-import { Controller, Body, Get, Post, Query, Param } from "@nestjs/common";
+import { Controller, Body, Get, Post, Put, Query, Param } from "@nestjs/common";
 
 import { Resp } from "@/common/interfaces/Resp";
 import { TransformIntQuery } from "@/common/transform/query.transform";
 import { BizTypeService } from "@/biz-type/biz-type.service";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";
 import { BizType } from "@/biz-type/schemas/biz-type.shema";
+import {UpdateBizTypeDto} from "@/biz-type/dto/update-biz-type.dto";
 
 @Controller("biz-type")
 export class BizTypeController {
@@ -41,4 +42,13 @@ export class BizTypeController {
       data
     }
   }
+
+/*  @Put(':id')
+  async updateById(@Param('id') id: string, @Body() body: UpdateBizTypeDto): Promise<Resp<BizType>> {
+    const data = await this.bizTypeService.updateById(id, body)
+    return {
+      code: 0,
+      data
+    }
+  }*/
 }

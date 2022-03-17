@@ -4,14 +4,12 @@ import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import * as serveStatic from "serve-static";
 
-import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix("api/v1");
-  app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
 
   app.use(

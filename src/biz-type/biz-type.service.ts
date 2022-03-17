@@ -5,6 +5,9 @@ import { Model } from "mongoose";
 import { PageQuery } from "@/common/interfaces/PageQuery";
 import { BizType, BizTypeDocument } from "@/biz-type/schemas/biz-type.shema";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";
+import { UpdateBizTypeDto } from "@/biz-type/dto/update-biz-type.dto";
+import {Rule} from "@/rule/schemas/rule.schema";
+import {RuleStatus} from "@/common/interfaces/Rule";
 
 @Injectable()
 export class BizTypeService {
@@ -24,10 +27,6 @@ export class BizTypeService {
     return Promise.all([
       this.bizTypeModel
         .find()
-        .populate({
-          path: "createdBy",
-          select: "username avatar",
-        })
         .sort({ createdAt: -1, title: 1 })
         .skip((current - 1) * pageSize)
         .limit(pageSize),
@@ -36,9 +35,17 @@ export class BizTypeService {
   }
 
   async findById(id: string): Promise<BizType> {
-    return this.bizTypeModel.findById(id).populate({
-      path: "createdBy",
-      select: "username avatar",
-    });
+    return this.bizTypeModel.findById(id);
   }
+
+/*  async updateById(id: string, body: UpdateBizTypeDto): Promise<BizType> {
+    return this.bizTypeModel.findByIdAndUpdate(
+        id,
+        new BizType(body),
+        {
+          new: true,
+          useFindAndModify: false,
+        }
+    );
+  }*/
 }
