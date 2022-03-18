@@ -1,10 +1,11 @@
-import { Length, IsBoolean, IsOptional } from "class-validator";
+import { Length, IsBoolean, IsOptional, Matches } from "class-validator";
 
 import { NotBlank } from "@/common/validator/NotBlank";
+import { NAME_REG } from "@/constants";
 
 export class CreateBizTypeDto {
-  @NotBlank()
   @Length(2, 10)
+  @Matches(NAME_REG)
   readonly name: string;
 
   @NotBlank()

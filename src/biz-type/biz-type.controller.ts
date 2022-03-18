@@ -43,7 +43,7 @@ export class BizTypeController {
     };
   }
 
-  @Get(":id")
+  @Get(":name")
   async findById(@Param("id") id): Promise<Resp<BizType>> {
     const data = await this.bizTypeService.findById(id);
     return {
