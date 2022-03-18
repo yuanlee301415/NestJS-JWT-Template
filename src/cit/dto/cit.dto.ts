@@ -2,7 +2,7 @@ import { Length } from "class-validator";
 
 import { NotBlank } from "@/common/validator/NotBlank";
 
-export class CreateResourceModelDto {
+export class CitDto {
   @NotBlank()
   @Length(2, 10)
   readonly name: string;

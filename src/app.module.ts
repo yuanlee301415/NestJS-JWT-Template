@@ -14,7 +14,7 @@ import { TaskModule } from "./task/task.module";
 import { RuleModule } from "./rule/rule.module";
 import { InceptionModule } from "./inception/inception.module";
 import { NoticeModule } from "./notice/notice.module";
-import { ResourceModelModule } from "./resource-model/resource-model.module";
+import { CitModule } from "./cit/cit.module";
 import { BizTypeModule } from "./biz-type/biz-type.module";
 
 @Module({
@@ -35,7 +35,7 @@ import { BizTypeModule } from "./biz-type/biz-type.module";
     RuleModule,
     InceptionModule,
     NoticeModule,
-    ResourceModelModule,
+    CitModule,
     BizTypeModule,
   ],
   controllers: [AppController],
