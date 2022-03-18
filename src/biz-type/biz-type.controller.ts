@@ -45,20 +45,20 @@ export class BizTypeController {
   }
 
   @Get(":name")
-  async findById(@Param("id") id): Promise<Resp<BizType>> {
-    const data = await this.bizTypeService.findById(id);
+  async findByName(@Param("name") name): Promise<Resp<BizType>> {
+    const data = await this.bizTypeService.findByName(name);
     return {
       code: 0,
       data,
     };
   }
 
-  @Put(":id")
-  async updateById(
-    @Param("id") id: string,
+  @Put(":name")
+  async updateByName(
+    @Param("name") name: string,
     @Body() body: UpdateBizTypeDto
   ): Promise<Resp<BizType>> {
-    const data = await this.bizTypeService.updateById(id, body);
+    const data = await this.bizTypeService.updateByName(name, body);
     return {
       code: 0,
       data,

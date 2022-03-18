@@ -33,13 +33,13 @@ export class BizTypeService {
     ]);
   }
 
-  async findById(id: string): Promise<BizType> {
-    return this.bizTypeModel.findById(id);
+  async findByName(name: string): Promise<BizType> {
+    return this.bizTypeModel.findOne({ name });
   }
 
-  async updateById(id: string, body: UpdateBizTypeDto): Promise<BizType> {
-    return this.bizTypeModel.findByIdAndUpdate(
-      id,
+  async updateByName(name: string, body: UpdateBizTypeDto): Promise<BizType> {
+    return this.bizTypeModel.findOneAndUpdate(
+        { name },
       {
         displayName: body.displayName,
         desc: body.desc,
