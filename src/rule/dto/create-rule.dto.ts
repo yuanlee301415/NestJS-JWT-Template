@@ -14,5 +14,5 @@ export class CreateRuleDto {
 
   @IsOptional()
   @IsMongoId()
-  readonly createdBy: Types.ObjectId;
+  readonly createdBy?: Types.ObjectId;
 }

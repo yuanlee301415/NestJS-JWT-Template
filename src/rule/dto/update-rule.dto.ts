@@ -24,21 +24,21 @@ export class UpdateRuleDto {
 
   @IsOptional()
   @MaxLength(100)
-  readonly target: string;
+  readonly target?: string;
 
   @IsOptional()
   @MaxLength(100)
-  readonly template: string;
+  readonly template?: string;
 
   @IsOptional()
   @IsIn([0, 1])
-  readonly type: number;
+  readonly type?: number;
 
   @IsOptional()
   @MaxLength(100)
-  readonly frequency: string;
+  readonly frequency?: string;
 
   @IsOptional()
   @IsMongoId()
-  readonly createdBy: Types.ObjectId;
+  readonly createdBy?: Types.ObjectId;
 }

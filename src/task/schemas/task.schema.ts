@@ -50,13 +50,13 @@ export class Task {
   @Prop({
     type: String,
   })
-  subDescription?: string;
+  subDescription: string;
 
   @Prop({
     type: Types.ObjectId,
     ref: User.name,
   })
-  createdBy?: Types.ObjectId;
+  createdBy: Types.ObjectId;
 
   constructor(task: TaskDto) {
     this.title = task.title;

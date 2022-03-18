@@ -27,12 +27,12 @@ export class BizType {
     type: Boolean,
     default: false,
   })
-  system?: boolean;
+  system: boolean;
 
   @Prop({
     type: String,
   })
-  desc?: string;
+  desc: string;
 
   constructor(bizType: CreateBizTypeDto & UpdateBizTypeDto) {
     this.name = bizType.name;
