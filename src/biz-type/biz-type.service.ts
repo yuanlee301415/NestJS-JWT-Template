@@ -1,8 +1,8 @@
 import type { PageQuery } from "@/interfaces/PageQuery";
+import type { Model } from "mongoose";
 
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
 
 import { BizType, BizTypeDocument } from "@/biz-type/schemas/biz-type.shema";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";

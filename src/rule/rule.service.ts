@@ -1,8 +1,8 @@
+import type { Model } from "mongoose";
 import type { PageQuery } from "@/interfaces/PageQuery";
 
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
 
 import { RuleStatus } from "@/interfaces/Rule";
 import { Rule, RuleDocument } from "./schemas/rule.schema";
