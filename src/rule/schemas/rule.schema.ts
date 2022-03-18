@@ -3,10 +3,10 @@ import type { Document } from "mongoose";
 import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
+import { User } from "@/user/schemas/user.schema";
+import { RuleStatus } from "@/interfaces/Rule";
 import { CreateRuleDto } from "../dto/create-rule.dto";
 import { UpdateRuleDto } from "../dto/update-rule.dto";
-import { User } from "@/user/schemas/user.schema";
-import { RuleStatus } from "@/common/interfaces/Rule";
 
 @Schema({
   timestamps: true,

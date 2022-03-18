@@ -1,8 +1,9 @@
+import type { PageQuery} from "@/interfaces/PageQuery";
+
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
-import { PageQuery} from "@/common/interfaces/PageQuery";
 import { Cit, CitDocument} from "@/cit/schemas/cit.schema";
 import { CreateCitDto} from "@/cit/dto/create-cit.dto";
 

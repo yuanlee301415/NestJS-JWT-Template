@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+
 import {
   Length,
   IsOptional,
@@ -13,7 +14,7 @@ import {
   NoticeType,
   NoticeEventStatus,
   NotificationSubType,
-} from "@/common/interfaces/Notice";
+} from "@/interfaces/Notice";
 
 export class NoticeDto {
   @NotBlank()

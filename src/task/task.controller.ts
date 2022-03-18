@@ -1,3 +1,5 @@
+import type { Resp } from "@/interfaces/Resp";
+
 import {
   Controller,
   Get,
@@ -11,7 +13,6 @@ import {
 } from "@nestjs/common";
 
 import { TransformIntQuery } from "@/common/transform/query.transform";
-import { Resp } from "@/common/interfaces/Resp";
 
 import { TaskDto } from "./dto/task.dto";
 import { TaskService } from "./task.service";

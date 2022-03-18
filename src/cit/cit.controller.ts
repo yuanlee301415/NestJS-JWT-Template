@@ -1,6 +1,7 @@
+import type { Resp} from "@/interfaces/Resp";
+
 import { Controller, Post, Body, Get, Query, Patch, Param, Delete } from "@nestjs/common";
 
-import { Resp} from "@/common/interfaces/Resp";
 import { TransformIntQuery} from "@/common/transform/query.transform";
 import {CitService} from "@/cit/cit.service";
 import { Cit} from "@/cit/schemas/cit.schema";

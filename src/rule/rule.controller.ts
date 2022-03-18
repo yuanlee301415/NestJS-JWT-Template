@@ -1,3 +1,5 @@
+import type { Resp } from "@/interfaces/Resp";
+
 import {
   Body,
   Controller,
@@ -10,7 +12,6 @@ import {
 } from "@nestjs/common";
 
 import { TransformIntQuery } from "@/common/transform/query.transform";
-import { Resp } from "@/common/interfaces/Resp";
 
 import { RuleService } from "./rule.service";
 import { CreateRuleDto } from "./dto/create-rule.dto";

@@ -1,3 +1,5 @@
+import type { Resp } from "@/interfaces/Resp";
+
 import {
   Controller,
   Get,
@@ -9,7 +11,6 @@ import {
 } from "@nestjs/common";
 
 import { TransformIntQuery } from "@/common/transform/query.transform";
-import { Resp } from "@/common/interfaces/Resp";
 import { Notice } from "./schemas/notice.schema";
 import { NoticeService } from "./notice.service";
 import { NoticeDto } from "./dto/notice.dto";

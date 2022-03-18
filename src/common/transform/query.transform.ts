@@ -1,4 +1,4 @@
-import type { PageQuery } from "../interfaces/PageQuery";
+import type { PageQuery } from "@/interfaces/PageQuery";
 
 import {
   PipeTransform,

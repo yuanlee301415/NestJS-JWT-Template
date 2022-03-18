@@ -1,3 +1,5 @@
+import type { Resp } from "@/interfaces/Resp";
+
 import {
   Controller,
   Body,
@@ -9,7 +11,6 @@ import {
   Delete,
 } from "@nestjs/common";
 
-import { Resp } from "@/common/interfaces/Resp";
 import { TransformIntQuery } from "@/common/transform/query.transform";
 import { BizTypeService } from "@/biz-type/biz-type.service";
 import { CreateBizTypeDto } from "@/biz-type/dto/create-biz-type.dto";

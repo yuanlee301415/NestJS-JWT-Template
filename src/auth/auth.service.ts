@@ -1,9 +1,10 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { UserService } from "../user/user.service";
-import { User } from "../user/schemas/user.schema";
-import { CryptoUtil } from "../common/utils/crypto.util";
-import { AuthPayload } from "../common/interfaces/AuthPayload";
+
+import { UserService } from "@/user/user.service";
+import { User } from "@/user/schemas/user.schema";
+import { CryptoUtil } from "@/common/utils/crypto.util";
+import { AuthPayload } from "@/interfaces/AuthPayload";
 
 @Injectable()
 export class AuthService {

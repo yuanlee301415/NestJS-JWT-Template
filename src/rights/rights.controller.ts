@@ -1,3 +1,7 @@
+import type { Resp } from "@/interfaces/Resp";
+import type { Token } from "@/interfaces/Token";
+import type { AuthUser } from "@/interfaces/AuthUser";
+
 import {
   Body,
   Controller,
@@ -9,13 +13,10 @@ import {
 } from "@nestjs/common";
 
 import { LocalAuthGuard } from "@/auth/guards/local-auth.guard";
-import { Resp } from "@/common/interfaces/Resp";
-import { Token } from "@/common/interfaces/Token";
 import { RightsService } from "./rights.service";
 import { AuthService } from "@/auth/auth.service";
 import { NoticeService } from "@/notice/notice.service";
 import { JwtAuthGuard } from "@/auth/guards/jwt-auth.guard";
-import { AuthUser } from "@/common/interfaces/AuthUser";
 import { CreateUserDto } from "@/user/dto/create-user.dto";
 import { User } from "@/user/schemas/user.schema";
 
