@@ -1,6 +1,5 @@
 import type { Document } from "mongoose";
 
-import { BadRequestException } from "@nestjs/common";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { CreateUserDto } from "../dto/create-user.dto";

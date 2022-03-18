@@ -1,6 +1,6 @@
 import { Length } from "class-validator";
 
-export class CreateUserDto {
+export class UpdateUserDto {
   @Length(5, 20)
   readonly username: string;
 

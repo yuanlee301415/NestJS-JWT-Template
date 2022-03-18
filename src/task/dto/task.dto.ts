@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
 import { MaxLength, IsOptional, IsMongoId, IsNotEmpty } from "class-validator";
 
 import { NotBlank } from "@/common/validator/NotBlank";
@@ -18,7 +18,7 @@ export class TaskDto {
 
   @IsNotEmpty()
   @IsMongoId()
-  readonly owner: mongoose.Schema.Types.ObjectId;
+  readonly owner: Types.ObjectId;
 
   @IsOptional()
   @MaxLength(200)
@@ -26,5 +26,5 @@ export class TaskDto {
 
   @IsOptional()
   @IsMongoId()
-  readonly createdBy?: mongoose.Schema.Types.ObjectId;
+  readonly createdBy?: Types.ObjectId;
 }

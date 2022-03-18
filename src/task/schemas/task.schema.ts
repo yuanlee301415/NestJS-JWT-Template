@@ -1,6 +1,6 @@
 import type { Document } from "mongoose";
 
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { User } from "@/user/schemas/user.schema";
@@ -31,11 +31,11 @@ export class Task {
   logo: string;
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: Types.ObjectId,
     ref: User.name,
     required: true,
   })
-  owner: mongoose.Schema.Types.ObjectId;
+  owner: Types.ObjectId;
 
   @Prop({
     type: Number,
@@ -53,10 +53,10 @@ export class Task {
   subDescription?: string;
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: Types.ObjectId,
     ref: User.name,
   })
-  createdBy?: mongoose.Schema.Types.ObjectId;
+  createdBy?: Types.ObjectId;
 
   constructor(task: TaskDto) {
     this.title = task.title;
