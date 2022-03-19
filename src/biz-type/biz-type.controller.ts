@@ -66,7 +66,10 @@ export class BizTypeController {
   }
 
   @Delete()
-  async deleteMany(@Body() body: {ids: string[]}) {
-    return this.bizTypeService.deleteMany(body.ids);
+  async deleteMany(@Body() body: { ids: string[] }): Promise<Resp<any>> {
+    await this.bizTypeService.deleteMany(body.ids);
+    return {
+      code: 0,
+    };
   }
 }

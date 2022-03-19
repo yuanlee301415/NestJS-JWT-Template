@@ -39,7 +39,7 @@ export class BizTypeService {
 
   async updateByName(name: string, body: UpdateBizTypeDto): Promise<BizType> {
     return this.bizTypeModel.findOneAndUpdate(
-        { name },
+      { name },
       {
         displayName: body.displayName,
         desc: body.desc,
@@ -51,7 +51,7 @@ export class BizTypeService {
     );
   }
 
-  async deleteMany(ids: string[]) {
-    return this.bizTypeModel.deleteMany({_id: { $in: ids } });
+  async deleteMany(ids: string[]): Promise<any> {
+    return this.bizTypeModel.deleteMany({ _id: { $in: ids } });
   }
 }
