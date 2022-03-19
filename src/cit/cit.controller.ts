@@ -48,4 +48,14 @@ export class CitController {
       data
     }
   }
+
+  @Delete(':name')
+  async deleteByName(@Param('name') name: string) {
+    await this.citService.deleteByName(name)
+    return {
+      code: 0
+    }
+  }
+
+  // Todo: get tree data
 }

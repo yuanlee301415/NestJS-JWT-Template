@@ -42,4 +42,12 @@ export class CitService {
   async findByName(name: string) {
     return this.citModel.findOne({ name })
   }
+
+  async deleteByName(name: string) {
+    const child = await this.citModel.findOne({ parentName: name })
+    if (child) {
+      throw new BadRequestException(`请先删除 ${name} 的子节点`)
+    }
+    return this.citModel.deleteOne({ name })
+  }
 }
