@@ -51,7 +51,7 @@ export class BizTypeService {
     );
   }
 
-  async removeById(id: string): Promise<BizType> {
-    return this.bizTypeModel.findByIdAndRemove(id);
+  async deleteMany(ids: string[]) {
+    return this.bizTypeModel.deleteMany({_id: { $in: ids } });
   }
 }

@@ -65,8 +65,8 @@ export class BizTypeController {
     };
   }
 
-  @Delete(":id")
-  async removeById(@Param("id") id: string): Promise<BizType> {
-    return this.bizTypeService.removeById(id);
+  @Delete()
+  async deleteMany(@Body() body: {ids: string[]}) {
+    return this.bizTypeService.deleteMany(body.ids);
   }
 }
