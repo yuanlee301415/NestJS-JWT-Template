@@ -6,7 +6,7 @@ import {
   Body,
   Get,
   Query,
-  Patch,
+  Put,
   Param,
   Delete,
 } from "@nestjs/common";
@@ -15,6 +15,7 @@ import { TransformIntQuery } from "@/common/transform/query.transform";
 import { CitService } from "@/cit/cit.service";
 import { Cit } from "@/cit/schemas/cit.schema";
 import { CreateCitDto } from "@/cit/dto/create-cit.dto";
+import {UpdateCitDto} from "@/cit/dto/update-cit.dto";
 
 @Controller("cit")
 export class CitController {
@@ -43,6 +44,15 @@ export class CitController {
   @Get(':name')
   async findByName(@Param('name') name: string): Promise<Resp<Cit>> {
     const data = await this.citService.findByName(name)
+    return {
+      code: 0,
+      data
+    }
+  }
+
+  @Put(':name')
+  async updateByName(@Param('name') name: string, @Body() body: UpdateCitDto) {
+    const data = await this.citService.updateByName(name, body)
     return {
       code: 0,
       data

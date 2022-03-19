@@ -6,6 +6,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 import { Cit, CitDocument } from "@/cit/schemas/cit.schema";
 import { CreateCitDto } from "@/cit/dto/create-cit.dto";
+import {UpdateCitDto} from "@/cit/dto/update-cit.dto";
 
 @Injectable()
 export class CitService {
@@ -41,6 +42,20 @@ export class CitService {
 
   async findByName(name: string) {
     return this.citModel.findOne({ name })
+  }
+
+  async updateByName(name: string, body: UpdateCitDto): Promise<Cit> {
+    return this.citModel.findOneAndUpdate(
+        { name },
+        {
+          displayName: body.displayName,
+          bizTypes: body.bizTypes,
+        },
+        {
+          new: true,
+          useFindAndModify: false,
+        }
+    );
   }
 
   async deleteByName(name: string) {

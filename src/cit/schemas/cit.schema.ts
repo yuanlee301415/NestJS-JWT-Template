@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { CreateCitDto } from "@/cit/dto/create-cit.dto";
+import { UpdateCitDto } from "@/cit/dto/update-cit.dto";
 import { BizType } from "@/biz-type/schemas/biz-type.shema";
 
 @Schema({
@@ -40,7 +41,7 @@ export class Cit {
   })
   bizTypes: Types.ObjectId[];
 
-  constructor(cit: CreateCitDto & { path: string }) {
+  constructor(cit: CreateCitDto & UpdateCitDto & { path: string }) {
     this.name = cit.name;
     this.displayName = cit.displayName;
     this.parentName = cit.parentName;
