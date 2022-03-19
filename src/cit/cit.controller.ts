@@ -27,4 +27,18 @@ export class CitController {
       data: await this.citService.create(body),
     };
   }
+
+  @Get()
+  async findAll(
+      @Query(new TransformIntQuery()) query
+  ): Promise<Resp<Cit[]>> {
+    const [data, total] = await this.citService.findAll(query);
+    return {
+      code: 0,
+      data,
+      total,
+      current: query.current,
+      pageSize: query.pageSize,
+    };
+  }
 }

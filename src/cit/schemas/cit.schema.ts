@@ -24,12 +24,12 @@ export class Cit {
   @Prop({
     type: String,
   })
-  path: string;
+  parentName: string;
 
   @Prop({
     type: String,
   })
-  desc: string;
+  path: string;
 
   @Prop({
     type: Array,
@@ -39,8 +39,8 @@ export class Cit {
   constructor(cit: CreateCitDto) {
     this.name = cit.name;
     this.displayName = cit.displayName;
+    this.parentName = cit.parentName;
     this.path = cit.path;
-    this.desc = cit.desc;
     this.bizTypes = cit.bizTypes;
   }
 }

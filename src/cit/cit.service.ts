@@ -16,4 +16,17 @@ export class CitService {
   async create(body: CreateCitDto): Promise<Cit> {
     return this.citModel.create(new Cit(body));
   }
-}
+
+  async findAll({
+      current,
+      pageSize
+  }: PageQuery): Promise<[Cit[], number]> {
+    return Promise.all([
+      this.citModel
+          .find()
+          .sort({ createdAt: -1, title: 1 })
+          .skip((current - 1) * pageSize)
+          .limit(pageSize),
+      this.citModel.countDocuments(),
+    ]);
+  }}

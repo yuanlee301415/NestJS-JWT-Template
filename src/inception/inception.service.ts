@@ -10,6 +10,8 @@ import { Task } from "@/task/schemas/task.schema";
 import { TaskService } from "@/task/task.service";
 import { BizType } from "@/biz-type/schemas/biz-type.shema";
 import { BizTypeService } from "@/biz-type/biz-type.service";
+import { Cit} from "@/cit/schemas/cit.schema";
+import { CitService} from "@/cit/cit.service";
 
 const TITLES = [
   "Alipay",
@@ -28,17 +30,19 @@ export class InceptionService {
     private readonly userService: UserService,
     private readonly ruleService: RuleService,
     private readonly taskService: TaskService,
-    private readonly bizTypeService: BizTypeService
+    private readonly bizTypeService: BizTypeService,
+    private readonly citService: CitService,
   ) {}
 
   async main() {
     // 查询前置初始数据
-    const [[users]]: Array<[User[], number]> = await Promise.all([
+    const [[users, userTotal], [bizTypes, bizTypeTotal]]: [[User[], number], [BizType[], number]] = await Promise.all([
       this.userService.findAll({ current: 1, pageSize: 0 }),
+      this.bizTypeService.findAll({ current: 1, pageSize: 0 }),
     ]);
 
     // 创建前置初始数据
-    const preInceptions: [Promise<User[]>] = [
+    const preInceptions: [Promise<User[]>, Promise<BizType[]>] = [
       users.length
         ? Promise.resolve(users)
         : this.mockUser([
@@ -49,40 +53,41 @@ export class InceptionService {
             "user_2",
             "user_3",
           ]),
+        bizTypes.length ? Promise.resolve(bizTypes) : this.mockBizType()
     ];
 
-    const [newUsers]: Array<User[]> = await Promise.all(preInceptions);
+    const [newUsers, newBizTypes]: [User[], BizType[]] = await Promise.all(preInceptions);
     console.log("newUsers[0]:", newUsers[0]);
     const admin = newUsers.find((_) => _.username === "admin");
     console.log("admin:\n", admin);
+    console.log("newBizTypes[0]:", newBizTypes[0]);
 
     // 查询后置初始数据
-    const [[rules, ruleTotal], [tasks, taskTotal], [bizTypes, bizTypeTotal]]: [
+    const [[rules, ruleTotal], [tasks, taskTotal], [cits, citTotal]]: [
       [Rule[], number],
       [Task[], number],
-      [BizType[], number]
+      [Cit[], number]
     ] = await Promise.all([
       this.ruleService.findAll({ current: 1, pageSize: 1 }),
       this.taskService.findAll({ current: 1, pageSize: 1 }),
-      this.bizTypeService.findAll({ current: 1, pageSize: 1 }),
+      this.citService.findAll({ current: 1, pageSize: 1 }),
     ]);
 
     // 创建后置初始数据
     const postInceptions: [
       Rule[] | Promise<Rule[]>,
       Task[] | Promise<Task[]>,
-      BizType[] | Promise<BizType[]>
+      Cit[] | Promise<Cit[]>,
     ] = [
       ruleTotal ? rules : this.mockRule(admin, 11),
       taskTotal ? tasks : this.mockTask(newUsers, admin, 11),
-      bizTypeTotal ? bizTypes : this.mockBizType(admin),
+      citTotal ? cits : this.mockCit(newBizTypes[0]),
     ];
-    const [newRules, newTasks, newBizTypes]: (Rule[] | Task[] | BizType[])[] =
+    const [newRules, newTasks, newCits]: (Rule[] | Task[] | Cit[])[] =
       await Promise.all(postInceptions);
     console.log("newRules[0]:", newRules[0]);
     console.log("newTasks[0]:", newTasks[0]);
-    console.log("newBizTypes[0]:", newBizTypes[0]);
-
+    console.log("newCits[0]:", newCits[0]);
     console.log(
       `---------------------------------------AppService>onModuleInit::end---------------------------------------\n\n`
     );
@@ -130,33 +135,44 @@ export class InceptionService {
   }
 
   /* mock bizType data */
-  async mockBizType(admin): Promise<BizType[]> {
+  async mockBizType(): Promise<BizType[]> {
     const data = [
       {
         name: "monitor",
         displayName: "监控",
         system: true,
-        createdBy: admin._id,
+        desc: "监控",
       },
       {
         name: "asset",
         displayName: "资产",
         system: true,
-        createdBy: admin._id,
+        desc: "资产",
       },
       {
         name: "video",
         displayName: "视频",
         system: true,
-        createdBy: admin._id,
+        desc: "视频",
       },
       {
         name: "iot",
         displayName: "物联网",
         system: true,
-        createdBy: admin._id,
+        desc: "物联网",
       },
     ];
     return Promise.all(data.map((_) => this.bizTypeService.create(_)));
+  }
+
+  /* mock cit data */
+  async mockCit(bizType: BizType): Promise<Cit[]> {
+    const data = [
+      { name: 'root', displayName: '根节点', path: 'root', parentName: '', bizTypes: [bizType._id]},
+      { name: 'frontend', displayName: '前端', path: 'root.frontend', parentName: 'root', bizTypes: [bizType._id]},
+      { name: 'NodeJS', displayName: 'NodeJS', path: 'root.NodeJS', parentName: 'root', bizTypes: [bizType._id]},
+      { name: 'HTTP', displayName: 'HTTP', path: 'root.HTTP', parentName: 'root', bizTypes: [bizType._id]},
+    ];
+    return Promise.all(data.map((_) => this.citService.create(_)));
   }
 }

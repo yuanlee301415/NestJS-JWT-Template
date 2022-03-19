@@ -22,7 +22,4 @@ export class CreateCitDto {
 
   @IsMongoId()
   readonly bizTypes: Types.ObjectId[];
-
-  @IsOptional()
-  readonly desc?: string;
 }
