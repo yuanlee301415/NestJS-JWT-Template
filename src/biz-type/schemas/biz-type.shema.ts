@@ -11,7 +11,7 @@ import { UpdateBizTypeDto } from "@/biz-type/dto/update-biz-type.dto";
   timestamps: true,
 })
 export class BizType {
-  _id: Types.ObjectId
+  _id: Types.ObjectId;
 
   @Prop({
     type: String,

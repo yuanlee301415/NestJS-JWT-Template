@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { CreateCitDto } from "@/cit/dto/create-cit.dto";
+import { BizType } from "@/biz-type/schemas/biz-type.shema";
 
 @Schema({
   timestamps: true,
@@ -32,7 +33,7 @@ export class Cit {
   path: string;
 
   @Prop({
-    type: Array,
+    type: [{ type: Types.ObjectId, ref: BizType.name }],
   })
   bizTypes: Types.ObjectId[];
 

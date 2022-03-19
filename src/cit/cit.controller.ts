@@ -29,9 +29,7 @@ export class CitController {
   }
 
   @Get()
-  async findAll(
-      @Query(new TransformIntQuery()) query
-  ): Promise<Resp<Cit[]>> {
+  async findAll(@Query(new TransformIntQuery()) query): Promise<Resp<Cit[]>> {
     const [data, total] = await this.citService.findAll(query);
     return {
       code: 0,

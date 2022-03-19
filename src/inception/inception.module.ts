@@ -9,7 +9,14 @@ import { BizTypeModule } from "@/biz-type/biz-type.module";
 import { CitModule } from "@/cit/cit.module";
 
 @Module({
-  imports: [UserModule, RuleModule, TaskModule, NoticeModule, BizTypeModule, CitModule],
+  imports: [
+    UserModule,
+    RuleModule,
+    TaskModule,
+    NoticeModule,
+    BizTypeModule,
+    CitModule,
+  ],
   providers: [InceptionService],
   exports: [InceptionService],
 })

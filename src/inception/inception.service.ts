@@ -10,8 +10,8 @@ import { Task } from "@/task/schemas/task.schema";
 import { TaskService } from "@/task/task.service";
 import { BizType } from "@/biz-type/schemas/biz-type.shema";
 import { BizTypeService } from "@/biz-type/biz-type.service";
-import { Cit} from "@/cit/schemas/cit.schema";
-import { CitService} from "@/cit/cit.service";
+import { Cit } from "@/cit/schemas/cit.schema";
+import { CitService } from "@/cit/cit.service";
 
 const TITLES = [
   "Alipay",
@@ -31,12 +31,15 @@ export class InceptionService {
     private readonly ruleService: RuleService,
     private readonly taskService: TaskService,
     private readonly bizTypeService: BizTypeService,
-    private readonly citService: CitService,
+    private readonly citService: CitService
   ) {}
 
   async main() {
     // 查询前置初始数据
-    const [[users, userTotal], [bizTypes, bizTypeTotal]]: [[User[], number], [BizType[], number]] = await Promise.all([
+    const [[users, userTotal], [bizTypes, bizTypeTotal]]: [
+      [User[], number],
+      [BizType[], number]
+    ] = await Promise.all([
       this.userService.findAll({ current: 1, pageSize: 0 }),
       this.bizTypeService.findAll({ current: 1, pageSize: 0 }),
     ]);
@@ -53,10 +56,12 @@ export class InceptionService {
             "user_2",
             "user_3",
           ]),
-        bizTypes.length ? Promise.resolve(bizTypes) : this.mockBizType()
+      bizTypes.length ? Promise.resolve(bizTypes) : this.mockBizType(),
     ];
 
-    const [newUsers, newBizTypes]: [User[], BizType[]] = await Promise.all(preInceptions);
+    const [newUsers, newBizTypes]: [User[], BizType[]] = await Promise.all(
+      preInceptions
+    );
     console.log("newUsers[0]:", newUsers[0]);
     const admin = newUsers.find((_) => _.username === "admin");
     console.log("admin:\n", admin);
@@ -77,11 +82,11 @@ export class InceptionService {
     const postInceptions: [
       Rule[] | Promise<Rule[]>,
       Task[] | Promise<Task[]>,
-      Cit[] | Promise<Cit[]>,
+      Cit[] | Promise<Cit[]>
     ] = [
       ruleTotal ? rules : this.mockRule(admin, 11),
       taskTotal ? tasks : this.mockTask(newUsers, admin, 11),
-      citTotal ? cits : this.mockCit(newBizTypes[0]),
+      citTotal ? cits : this.mockCit(newBizTypes),
     ];
     const [newRules, newTasks, newCits]: (Rule[] | Task[] | Cit[])[] =
       await Promise.all(postInceptions);
@@ -166,12 +171,37 @@ export class InceptionService {
   }
 
   /* mock cit data */
-  async mockCit(bizType: BizType): Promise<Cit[]> {
+  async mockCit(bizTypes: BizType[]): Promise<Cit[]> {
+    const bizTypeIds = bizTypes.map((_) => _._id);
     const data = [
-      { name: 'root', displayName: '根节点', path: 'root', parentName: '', bizTypes: [bizType._id]},
-      { name: 'frontend', displayName: '前端', path: 'root.frontend', parentName: 'root', bizTypes: [bizType._id]},
-      { name: 'NodeJS', displayName: 'NodeJS', path: 'root.NodeJS', parentName: 'root', bizTypes: [bizType._id]},
-      { name: 'HTTP', displayName: 'HTTP', path: 'root.HTTP', parentName: 'root', bizTypes: [bizType._id]},
+      {
+        name: "root",
+        displayName: "根节点",
+        path: "root",
+        parentName: "",
+        bizTypes: bizTypeIds,
+      },
+      {
+        name: "frontend",
+        displayName: "前端",
+        path: "root.frontend",
+        parentName: "root",
+        bizTypes: bizTypeIds,
+      },
+      {
+        name: "NodeJS",
+        displayName: "NodeJS",
+        path: "root.NodeJS",
+        parentName: "root",
+        bizTypes: bizTypeIds,
+      },
+      {
+        name: "HTTP",
+        displayName: "HTTP",
+        path: "root.HTTP",
+        parentName: "root",
+        bizTypes: bizTypeIds,
+      },
     ];
     return Promise.all(data.map((_) => this.citService.create(_)));
   }
