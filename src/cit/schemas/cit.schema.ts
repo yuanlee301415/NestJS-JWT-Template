@@ -33,16 +33,19 @@ export class Cit {
   path: string;
 
   @Prop({
+    /**
+     * 关联 Mongo id 数组
+     */
     type: [{ type: Types.ObjectId, ref: BizType.name }],
   })
   bizTypes: Types.ObjectId[];
 
-  constructor(cit: CreateCitDto) {
+  constructor(cit: CreateCitDto & { path: string }) {
     this.name = cit.name;
     this.displayName = cit.displayName;
     this.parentName = cit.parentName;
-    this.path = cit.path;
     this.bizTypes = cit.bizTypes;
+    this.path = cit.path;
   }
 }
 

@@ -177,31 +177,21 @@ export class InceptionService {
       {
         name: "root",
         displayName: "根节点",
-        path: "root",
         parentName: "",
         bizTypes: bizTypeIds,
       },
       {
         name: "frontend",
         displayName: "前端",
-        path: "root.frontend",
         parentName: "root",
         bizTypes: bizTypeIds,
       },
       {
         name: "NodeJS",
         displayName: "NodeJS",
-        path: "root.NodeJS",
         parentName: "root",
         bizTypes: bizTypeIds,
-      },
-      {
-        name: "HTTP",
-        displayName: "HTTP",
-        path: "root.HTTP",
-        parentName: "root",
-        bizTypes: bizTypeIds,
-      },
+      }
     ];
     return Promise.all(data.map((_) => this.citService.create(_)));
   }

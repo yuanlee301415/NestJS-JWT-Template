@@ -1,7 +1,7 @@
 import type { Model } from "mongoose";
 import type { PageQuery } from "@/interfaces/PageQuery";
 
-import { Injectable } from "@nestjs/common";
+import { Injectable, BadRequestException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 
 import { Cit, CitDocument } from "@/cit/schemas/cit.schema";
@@ -14,7 +14,14 @@ export class CitService {
   ) {}
 
   async create(body: CreateCitDto): Promise<Cit> {
-    return this.citModel.create(new Cit(body));
+    const parent = await this.findByName(body.parentName)
+    if (!parent) {
+      throw new BadRequestException(`cit name: ${body.name}'s parentName: ${body.parentName} is not found.`)
+    }
+    return this.citModel.create(new Cit({
+      ...body,
+      path: parent.path + '.' + body.name
+    }));
   }
 
   async findAll({ current, pageSize }: PageQuery): Promise<[Cit[], number]> {
@@ -30,5 +37,9 @@ export class CitService {
         .limit(pageSize),
       this.citModel.countDocuments(),
     ]);
+  }
+
+  async findByName(name: string) {
+    return this.citModel.findOne({ name })
   }
 }

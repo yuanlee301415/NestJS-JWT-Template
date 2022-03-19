@@ -39,4 +39,13 @@ export class CitController {
       pageSize: query.pageSize,
     };
   }
+
+  @Get(':name')
+  async findByName(@Param('name') name: string): Promise<Resp<Cit>> {
+    const data = await this.citService.findByName(name)
+    return {
+      code: 0,
+      data
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { Length, IsOptional, IsMongoId, Matches } from "class-validator";
+import { Length, IsArray, IsMongoId, Matches } from "class-validator";
 
 import { NotBlank } from "@/common/validator/NotBlank";
 import { NAME_REG } from "@/constants";
@@ -16,10 +16,10 @@ export class CreateCitDto {
   @Length(2, 10)
   readonly parentName: string;
 
-  @NotBlank()
-  @Length(2, 1000)
-  readonly path: string;
-
-  @IsMongoId()
+  /**
+   * 验证：Mongo id 数组
+   */
+  @IsArray()
+  @IsMongoId({each: true})
   readonly bizTypes: Types.ObjectId[];
 }
