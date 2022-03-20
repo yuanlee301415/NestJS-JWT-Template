@@ -191,7 +191,7 @@ export class InceptionService {
         displayName: "NodeJS",
         parentName: "root",
         bizTypes: bizTypeIds,
-      }
+      },
     ];
     return Promise.all(data.map((_) => this.citService.create(_)));
   }

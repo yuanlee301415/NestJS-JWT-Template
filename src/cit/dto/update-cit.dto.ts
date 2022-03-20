@@ -12,6 +12,6 @@ export class UpdateCitDto {
    * 验证：Mongo id 数组
    */
   @IsArray()
-  @IsMongoId({each: true})
+  @IsMongoId({ each: true })
   readonly bizTypes: Types.ObjectId[];
 }

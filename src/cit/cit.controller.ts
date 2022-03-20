@@ -1,4 +1,5 @@
 import type { Resp } from "@/interfaces/Resp";
+import type { CitTreeData } from "@/cit/types";
 
 import {
   Controller,
@@ -15,7 +16,7 @@ import { TransformIntQuery } from "@/common/transform/query.transform";
 import { CitService } from "@/cit/cit.service";
 import { Cit } from "@/cit/schemas/cit.schema";
 import { CreateCitDto } from "@/cit/dto/create-cit.dto";
-import {UpdateCitDto} from "@/cit/dto/update-cit.dto";
+import { UpdateCitDto } from "@/cit/dto/update-cit.dto";
 
 @Controller("cit")
 export class CitController {
@@ -41,31 +42,41 @@ export class CitController {
     };
   }
 
-  @Get(':name')
-  async findByName(@Param('name') name: string): Promise<Resp<Cit>> {
-    const data = await this.citService.findByName(name)
+  @Get("__tree__")
+  async getTree(): Promise<Resp<CitTreeData>> {
+    const data = await this.citService.getTree();
     return {
       code: 0,
-      data
-    }
+      data,
+    };
   }
 
-  @Put(':name')
-  async updateByName(@Param('name') name: string, @Body() body: UpdateCitDto) {
-    const data = await this.citService.updateByName(name, body)
+  @Get(":name")
+  async findByName(@Param("name") name: string): Promise<Resp<Cit>> {
+    const data = await this.citService.findByName(name);
     return {
       code: 0,
-      data
-    }
+      data,
+    };
   }
 
-  @Delete(':name')
-  async deleteByName(@Param('name') name: string) {
-    await this.citService.deleteByName(name)
+  @Put(":name")
+  async updateByName(
+    @Param("name") name: string,
+    @Body() body: UpdateCitDto
+  ): Promise<Resp<Cit>> {
+    const data = await this.citService.updateByName(name, body);
     return {
-      code: 0
-    }
+      code: 0,
+      data,
+    };
   }
 
-  // Todo: get tree data
+  @Delete(":name")
+  async deleteByName(@Param("name") name: string): Promise<Resp<void>> {
+    await this.citService.deleteByName(name);
+    return {
+      code: 0,
+    };
+  }
 }
