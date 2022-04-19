@@ -1,7 +1,6 @@
 const faker = require("faker");
 
 import { Injectable } from "@nestjs/common";
-
 import { User } from "@/user/schemas/user.schema";
 import { UserService } from "@/user/user.service";
 import { Rule } from "@/rule/schemas/rule.schema";
@@ -12,6 +11,7 @@ import { BizType } from "@/biz-type/schemas/biz-type.shema";
 import { BizTypeService } from "@/biz-type/biz-type.service";
 import { Cit } from "@/cit/schemas/cit.schema";
 import { CitService } from "@/cit/cit.service";
+import * as citTreeData from './citTreeData.json'
 
 const TITLES = [
   "Alipay",
@@ -86,7 +86,7 @@ export class InceptionService {
     ] = [
       ruleTotal ? rules : this.mockRule(admin, 11),
       taskTotal ? tasks : this.mockTask(newUsers, admin, 11),
-      citTotal ? cits : this.mockCit(newBizTypes),
+      citTotal ? cits : this.mockCit(newBizTypes)
     ];
     const [newRules, newTasks, newCits]: (Rule[] | Task[] | Cit[])[] =
       await Promise.all(postInceptions);
@@ -173,26 +173,29 @@ export class InceptionService {
   /* mock cit data */
   async mockCit(bizTypes: BizType[]): Promise<Cit[]> {
     const bizTypeIds = bizTypes.map((_) => _._id);
-    const data = [
-      {
-        name: "root",
-        displayName: "根节点",
-        parentName: "",
-        bizTypes: bizTypeIds,
-      },
-      {
-        name: "frontend",
-        displayName: "前端",
-        parentName: "root",
-        bizTypes: bizTypeIds,
-      },
-      {
-        name: "NodeJS",
-        displayName: "NodeJS",
-        parentName: "root",
-        bizTypes: bizTypeIds,
-      },
-    ];
-    return Promise.all(data.map((_) => this.citService.create(_)));
+    const data = []
+
+    ;(function IIFE(items) {
+      for (const item of items) {
+        if (item) {
+          data.push({
+            name: item.name,
+            displayName: item.displayName,
+            parentName: item.parentName,
+            bizTypes: bizTypeIds
+          })
+          if (item.children) {
+            // @ts-ignore
+            IIFE(item.children)
+          }
+        }
+      }
+    })(citTreeData);
+
+    for (const item of data) {
+      await this.citService.create(item)
+    }
+
+    return Promise.resolve(data)
   }
 }

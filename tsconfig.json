@@ -15,7 +15,8 @@
       "@/*": ["./*"]
     },
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }

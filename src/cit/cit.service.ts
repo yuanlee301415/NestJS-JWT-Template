@@ -16,8 +16,15 @@ export class CitService {
   ) {}
 
   async create(body: CreateCitDto): Promise<Cit> {
+    const ex = await this.findByName(body.name);
+    console.log('ex:', ex)
+    if (ex) {
+      throw new BadRequestException(
+          `cit name: ${body.name} is ex.`
+      );
+    }
     const parent = await this.findByName(body.parentName);
-    if (!parent) {
+    if (body.name !== 'root' && !parent) {
       throw new BadRequestException(
         `cit name: ${body.name}'s parentName: ${body.parentName} is not found.`
       );
@@ -25,7 +32,7 @@ export class CitService {
     return this.citModel.create(
       new Cit({
         ...body,
-        path: parent.path + "." + body.name,
+        path: body.name === 'root' ? '' : parent.path + "." + body.name,
       })
     );
   }
@@ -72,7 +79,7 @@ export class CitService {
   }
 
   async getTree(): Promise<CitTreeData> {
-    const docs = await this.citModel.find().sort({ path: 1 });
+    const docs = await this.citModel.find().sort({ path: 1, createdAt: 1 });
     const items: CitTreeData =
       (docs &&
         docs.map(

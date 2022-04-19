@@ -1,0 +1,165 @@
+[
+  {
+    "name": "root",
+    "displayName": "根节点",
+    "parentName": "",
+    "children": [
+      {
+        "name": "tmoRoot",
+        "displayName": "CI项",
+        "parentName": "root",
+        "children": [
+          {
+            "name": "rac",
+            "displayName": "集群",
+            "parentName": "tmoRoot",
+            "children": [
+              {
+                "name": "OracleRac",
+                "displayName": "OracleRac",
+                "parentName": "rac"
+              }
+            ]
+          },
+          {
+            "name": "kvm",
+            "displayName": "KVM虚拟化",
+            "parentName": "tmoRoot",
+            "children": [
+              {
+                "name": "KVMHost",
+                "displayName": "KVMHost",
+                "parentName": "kvm"
+              }
+            ]
+          },
+          {
+            "name": "service",
+            "displayName": "标准应用",
+            "parentName": "tmoRoot",
+            "children": [
+              {
+                "name": "POP3",
+                "displayName": "POP3",
+                "parentName": "service"
+              },
+              {
+                "name": "JVM",
+                "displayName": "JVM",
+                "parentName": "service"
+              },
+              {
+                "name": "HTTP",
+                "displayName": "HTTP",
+                "parentName": "service"
+              },
+              {
+                "name": "DNS",
+                "displayName": "DNS",
+                "parentName": "service"
+              },
+              {
+                "name": "FTP",
+                "displayName": "FTP",
+                "parentName": "service"
+              }
+            ]
+          },
+          {
+            "name": "database",
+            "displayName": "数据库",
+            "parentName": "tmoRoot",
+            "children": [
+              {
+                "name": "MySQL",
+                "displayName": "MySQL",
+                "parentName": "database"
+              },
+              {
+                "name": "DM",
+                "displayName": "DM",
+                "parentName": "database"
+              },
+              {
+                "name": "MSSQL",
+                "displayName": "MSSQL",
+                "parentName": "database"
+              }
+            ]
+          },
+          {
+            "name": "host",
+            "displayName": "主机",
+            "parentName": "tmoRoot",
+            "children": [
+              {
+                "name": "LinuxServer",
+                "displayName": "LinuxServer",
+                "parentName": "host"
+              },
+              {
+                "name": "Windows",
+                "displayName": "Windows",
+                "parentName": "host"
+              },
+              {
+                "name": "IBMAixServer",
+                "displayName": "IBMAixServer",
+                "parentName": "host"
+              },
+              {
+                "name": "SolarisServer",
+                "displayName": "SolarisServer",
+                "parentName": "host"
+              },
+              {
+                "name": "HPUnixServer",
+                "displayName": "HPUnixServer",
+                "parentName": "host"
+              }
+            ]
+          },
+          {
+            "name": "line",
+            "displayName": "线路",
+            "parentName": "tmoRoot",
+            "children": [
+              {
+                "name": "Line",
+                "displayName": "Line",
+                "parentName": "line"
+              }
+            ]
+          },
+          {
+            "name": "network",
+            "displayName": "网络设备",
+            "parentName": "tmoRoot",
+            "children": [
+              {
+                "name": "H3C_AP",
+                "displayName": "H3C_AP",
+                "parentName": "network"
+              },
+              {
+                "name": "RG_WS",
+                "displayName": "RG_WS",
+                "parentName": "network"
+              },
+              {
+                "name": "DC_AP",
+                "displayName": "DC_AP",
+                "parentName": "network"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cmoRoot",
+        "displayName": "CI附加项",
+        "parentName": "root"
+      }
+    ]
+  }
+]
